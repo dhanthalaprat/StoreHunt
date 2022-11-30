@@ -4,7 +4,6 @@ public class UserModel {
     String userName, profilePic;
 
 
-
     public String getUserName() {
         return userName;
     }
