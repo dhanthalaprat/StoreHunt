@@ -19,11 +19,13 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_search_24"
             android:layout_weight="1"
+            android:id="@+id/prod_image"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/prod_name"
             android:text="Product Name"
             android:textSize="18sp"
             android:textColor="@color/black"
@@ -32,6 +34,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/prod_price"
             android:text="Cost"
             android:textSize="17sp"
             android:textColor="@color/black"/>

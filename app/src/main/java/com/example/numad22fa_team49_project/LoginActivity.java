@@ -47,11 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         String password = loginPassword.getText().toString();
 
        if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
             loginEmail.requestFocus();
         }
         else if (TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Incorrect password",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Incorrect password",Toast.LENGTH_SHORT).show();
             loginPassword.requestFocus();
         }
         else{
@@ -59,10 +59,10 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(LoginActivity.this,"User logged in successfully", Toast.LENGTH_SHORT);
+                        Toast.makeText(LoginActivity.this,"User logged in successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                     }else{
-                        Toast.makeText(LoginActivity.this,"Login error: "+task.getException().getMessage(),Toast.LENGTH_SHORT);
+                        Toast.makeText(LoginActivity.this,"Login error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });

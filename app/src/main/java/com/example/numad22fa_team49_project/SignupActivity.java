@@ -48,15 +48,15 @@ public class SignupActivity extends AppCompatActivity {
         String password = signUpPassword.getText().toString();
 
         if (TextUtils.isEmpty(name)){
-            Toast.makeText(this,"Please enter a valid name",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Please enter a valid name",Toast.LENGTH_SHORT).show();
             signUpName.requestFocus();
         }
         else if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
             signUpEmail.requestFocus();
         }
         else if (TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Please enter a password to create account",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Please enter a password to create account",Toast.LENGTH_SHORT).show();
             signUpPassword.requestFocus();
         }
         else{
@@ -64,10 +64,10 @@ public class SignupActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(SignupActivity.this,"User signed up successfully", Toast.LENGTH_SHORT);
+                        Toast.makeText(SignupActivity.this,"User signed up successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SignupActivity.this,HomeActivity.class));
                     }else{
-                        Toast.makeText(SignupActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT);
+                        Toast.makeText(SignupActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });
