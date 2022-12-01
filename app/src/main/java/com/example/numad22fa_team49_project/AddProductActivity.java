@@ -131,9 +131,7 @@ public class AddProductActivity extends AppCompatActivity {
         productMap.put("image_uri",url);
         productMap.put("rating","rating");
         productMap.put("description","description");
-
 //        GeneralProductHome productHome = new GeneralProductHome("name","description","100","4","date","time",url,"category");
-
         productReference.child(key).updateChildren(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

@@ -71,10 +71,8 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 generalProductHomeAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 

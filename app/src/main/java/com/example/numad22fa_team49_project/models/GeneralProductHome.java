@@ -4,9 +4,7 @@ public class GeneralProductHome {
     String name, description, price, rating, date, time, image, category;
 
     public GeneralProductHome() {
-
     }
-
     public GeneralProductHome(String name, String description, String price, String rating, String date, String time, String image, String category) {
         this.name = name;
         this.description = description;
