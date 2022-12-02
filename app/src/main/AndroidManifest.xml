@@ -15,6 +15,13 @@
         android:theme="@style/Theme.NUMAD22FA_Team49_Project"
         tools:targetApi="31">
         <activity
+            android:name=".ViewNewOrdersSellerViewActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ProductViewActivity"
             android:exported="false">
             <meta-data
