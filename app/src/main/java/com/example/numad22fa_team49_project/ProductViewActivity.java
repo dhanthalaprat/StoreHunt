@@ -23,22 +23,22 @@ public class ProductViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_view);
 
-//        product = (GeneralProductHome) getIntent().getSerializableExtra("product_info");
-//        Log.d("TAG_89", "onCreate: "+product.getName());
-//
-//        productImage = findViewById(R.id.product_view_image);
-//        productName = findViewById(R.id.product_view_name);
-//        productDescription = findViewById(R.id.product_view_description);
-//        productCost = findViewById(R.id.product_view_cost);
-//        productRatingText = findViewById(R.id.product_view_rating_text);
-//        productRating = findViewById(R.id.product_view_rating);
-//
-//        productName.setText(product.getName());
-//        productDescription.setText(product.getDescription());
-//        productCost.setText(product.getPrice());
-//        productRatingText.setText(product.getRating());
-//        productRating.setRating(Float.parseFloat(product.getRating()));
-//        Picasso.get().load(product.getImage_uri()).into(productImage);
+        product = (GeneralProductHome) getIntent().getSerializableExtra("product_info");
+        Log.d("TAG_89", "onCreate: "+product.getName());
+
+        productImage = findViewById(R.id.product_view_image);
+        productName = findViewById(R.id.product_view_name);
+        productDescription = findViewById(R.id.product_view_description);
+        productCost = findViewById(R.id.product_view_cost);
+        productRatingText = findViewById(R.id.product_view_rating_text);
+        productRating = findViewById(R.id.product_view_rating);
+
+        productName.setText(product.getName());
+        productDescription.setText(product.getDescription());
+        productCost.setText(product.getPrice());
+        productRatingText.setText(product.getRating());
+        productRating.setRating(Float.parseFloat(product.getRating()));
+        Picasso.get().load(product.getImage_uri()).into(productImage);
 
 
 
