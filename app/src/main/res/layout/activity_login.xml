@@ -36,47 +36,79 @@
                 android:layout_marginBottom="100dp"
                 android:layout_marginTop="100dp"/>
 
-<!--            <EditText-->
-<!--                android:id="@+id/login_email"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:background="@drawable/edittext_background"-->
-<!--                android:drawableStart="@drawable/ic_baseline_email_24"-->
-<!--                android:textColorHint="#603a91"-->
-<!--                android:ems="10"-->
-<!--                android:inputType="textPersonName"-->
-<!--                android:hint="Email"-->
-<!--                android:layout_marginStart="32dp"-->
-<!--                android:layout_marginTop="32dp"-->
-<!--                android:layout_marginEnd="32dp"-->
-<!--                android:padding="8dp"-->
-<!--                android:drawablePadding="16dp"/>-->
-
-            <EditText
-                android:id="@+id/login_password"
+            <!--            <EditText-->
+            <!--                android:id="@+id/login_email"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="50dp"-->
+            <!--                android:background="@drawable/edittext_background"-->
+            <!--                android:drawableStart="@drawable/ic_baseline_email_24"-->
+            <!--                android:textColorHint="#603a91"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:hint="Email"-->
+            <!--                android:layout_marginStart="32dp"-->
+            <!--                android:layout_marginTop="32dp"-->
+            <!--                android:layout_marginEnd="32dp"-->
+            <!--                android:padding="8dp"-->
+            <!--                android:drawablePadding="16dp"/>-->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/edittext_background"
-                android:drawableStart="@drawable/ic_baseline_lock_24"
-                android:textColorHint="#603a91"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="Password"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:padding="8dp"
-                android:drawablePadding="16dp"/>
+                android:hint="Email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/login_email"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/login_password"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/login_password"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="50dp"-->
+            <!--                android:background="@drawable/edittext_background"-->
+            <!--                android:drawableStart="@drawable/ic_baseline_lock_24"-->
+            <!--                android:textColorHint="#603a91"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPassword"-->
+            <!--                android:hint="Password"-->
+            <!--                android:layout_marginStart="32dp"-->
+            <!--                android:layout_marginTop="32dp"-->
+            <!--                android:layout_marginEnd="32dp"-->
+            <!--                android:padding="8dp"-->
+            <!--                android:drawablePadding="16dp"/>-->
 
 
             <Button
                 android:id="@+id/login_Button"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 style="@android:style/Widget.Button"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="40dp"
+                android:layout_gravity="center"
                 android:background="@drawable/button_login_background"
                 android:text="Login" />
 
