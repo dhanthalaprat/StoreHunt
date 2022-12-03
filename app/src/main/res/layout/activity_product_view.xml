@@ -7,52 +7,7 @@
     android:orientation="vertical"
     android:background="#F4F4F4"
     tools:context=".ProductViewActivity">
-    <!--Top Bar-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/heart"
-            android:padding="8dp"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/grey_background"
-            android:src="@drawable/menu"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_centerHorizontal="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LAMP"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#060606">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Deft accessories"
-                android:textSize="15sp">
-            </TextView>
-        </LinearLayout>
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="8dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/grey_background"
-            android:src="@drawable/heart">
-        </ImageView>
-
-    </RelativeLayout>
 
     <!--Body-->
     <LinearLayout
@@ -63,6 +18,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="280dp"
+            android:id="@+id/product_view_image"
             android:src="@drawable/collectibles_dolls"
             android:scaleType="centerCrop"/>
         <RelativeLayout
@@ -77,6 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/product_view_name"
                 android:text="TABLE LAMP"
                 android:textSize="18sp"
                 android:textColor="#060606"/>
@@ -85,41 +42,22 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp">
 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:padding="5dp"
-                    android:src="@drawable/filled_star"></ImageView>
-
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:padding="5dp"
-                    android:src="@drawable/filled_star"></ImageView>
-
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:padding="5dp"
-                    android:src="@drawable/filled_star"></ImageView>
-
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:padding="5dp"
-                    android:src="@drawable/filled_star"></ImageView>
-
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:padding="5dp"
-                    android:src="@drawable/empty_star"></ImageView>
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:layout_gravity="center_vertical"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:id="@+id/product_view_rating"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12 reviews"
+                    android:text="3.5"
+                    android:id="@+id/product_view_rating_text"
                     android:textSize="14sp"
+                    android:layout_marginStart="3dp"
                     android:textColor="#060606"/>
             </LinearLayout>
         </LinearLayout>
@@ -127,6 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/product_view_cost"
                 android:text="$90"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
@@ -135,91 +74,101 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:orientation="vertical"
-            android:background="@drawable/text_background">
-
-        <RelativeLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:id="@+id/product_view_description"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="description"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Suggestions for you"
-                android:textStyle="bold"
-                android:layout_alignParentLeft="true"
-                android:textSize="16sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View all"
-                android:textStyle="bold"
-                android:layout_alignParentRight="true"
-                android:textSize="16sp"/>
-        </RelativeLayout>
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:padding="10dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@drawable/text_background">-->
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="10dp">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    
-                    <LinearLayout
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        android:gravity="center"
-                        android:background="@drawable/white_background">
-                        <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:src="@drawable/collectibles_glassplant"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Marble Leaves"
-                            android:textSize="16sp"
-                            android:gravity="center"
-                            android:textColor="#000000"/>
-                        
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$350"
-                                android:textSize="16sp"
-                                android:gravity="center"/>
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="$750"
-                                    android:layout_marginStart="10dp"
-                                    android:textSize="15sp"/>
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="3dp"
-                                    android:layout_centerVertical="true"
-                                    android:background="#D11111"/>
-                            </RelativeLayout>
-                        </LinearLayout>
-                    </LinearLayout>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Suggestions for you"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_alignParentLeft="true"-->
+<!--                android:textSize="16sp"/>-->
 
-                </LinearLayout>
-            </HorizontalScrollView>
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="View all"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:textSize="16sp"/>-->
+<!--        </RelativeLayout>-->
+
+<!--            <HorizontalScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                    -->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="150dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:background="@drawable/white_background">-->
+<!--                        <ImageView-->
+<!--                            android:layout_width="120dp"-->
+<!--                            android:layout_height="120dp"-->
+<!--                            android:src="@drawable/collectibles_glassplant"/>-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Marble Leaves"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:textColor="#000000"/>-->
+<!--                        -->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content">-->
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="$350"-->
+<!--                                android:textSize="16sp"-->
+<!--                                android:gravity="center"/>-->
+<!--                            <RelativeLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content">-->
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="$750"-->
+<!--                                    android:layout_marginStart="10dp"-->
+<!--                                    android:textSize="15sp"/>-->
+<!--                                <LinearLayout-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="3dp"-->
+<!--                                    android:layout_centerVertical="true"-->
+<!--                                    android:background="#D11111"/>-->
+<!--                            </RelativeLayout>-->
+<!--                        </LinearLayout>-->
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+<!--            </HorizontalScrollView>-->
+<!--        </LinearLayout>-->
     </LinearLayout>
 </LinearLayout>
