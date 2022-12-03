@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences.Editor editSharedPreferences = sharedPreferences.edit();
 
         editSharedPreferences.putString("userId", mAuth.getUid());
-        editSharedPreferences.commit();
+        editSharedPreferences.apply();
 
         generalProductsRecyclerView = findViewById(R.id.general_product_home_recycler_view);
         recentlyViewedProductsRecyclerView = findViewById(R.id.recently_viewed_products_recycler_view);

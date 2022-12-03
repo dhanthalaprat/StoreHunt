@@ -2,6 +2,7 @@ package com.example.numad22fa_team49_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 public class ProductViewActivity extends AppCompatActivity {
@@ -20,6 +23,8 @@ public class ProductViewActivity extends AppCompatActivity {
     RatingBar productRating;
     GeneralProductHome product;
     Button addToCart;
+    DatabaseReference mReference;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,9 @@ public class ProductViewActivity extends AppCompatActivity {
 
         product = (GeneralProductHome) getIntent().getSerializableExtra("product_info");
         Log.d("TAG_89", "onCreate: "+product.getName());
+
+        sharedPreferences =getSharedPreferences("storeHunt",MODE_PRIVATE);
+        mReference = FirebaseDatabase.getInstance().getReference().child("user");
 
         productImage = findViewById(R.id.product_view_image);
         productName = findViewById(R.id.product_view_name);
@@ -53,6 +61,7 @@ public class ProductViewActivity extends AppCompatActivity {
     }
 
     private void addToCartAndDB() {
-
+        Log.d("TAG_56", "addToCartAndDB: "+sharedPreferences.getString("userId",""));
+        mReference.child(sharedPreferences.getString("userId","")).child("cart").child(product.getName()).setValue(product);
     }
 }
