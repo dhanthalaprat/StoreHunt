@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.numad22fa_team49_project.adapters.GeneralProductHomeAdapter;
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
     DatabaseReference reference;
 
     ArrayList<GeneralProductHome> generalProductHomes;
+    FirebaseAuth mAuth;
 
 
     @Override
@@ -48,7 +50,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        mAuth = FirebaseAuth.getInstance();
 
+        Log.d("TAG_564", "onCreate: "+mAuth.getUid());
 
         generalProductsRecyclerView = findViewById(R.id.general_product_home_recycler_view);
         recentlyViewedProductsRecyclerView = findViewById(R.id.recently_viewed_products_recycler_view);
