@@ -59,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         generalProductHomeAdapter = new GeneralProductHomeAdapter(this, generalProductHomes);
         generalProductsRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         generalProductsRecyclerView.setAdapter(generalProductHomeAdapter);
+        generalProductsRecyclerView.setNestedScrollingEnabled(false);
 
         reference = FirebaseDatabase.getInstance().getReference("products");
 

@@ -1,18 +1,18 @@
 package com.example.numad22fa_team49_project.models;
 
 public class GeneralProductHome {
-    String name, description, price, rating, date, time, image, category;
+    String name, description, price, rating, date, time, image_uri, category;
 
     public GeneralProductHome() {
     }
-    public GeneralProductHome(String name, String description, String price, String rating, String date, String time, String image, String category) {
+    public GeneralProductHome(String name, String description, String price, String rating, String date, String time, String image_uri, String category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.rating = rating;
         this.date = date;
         this.time = time;
-        this.image = image;
+        this.image_uri = image_uri;
         this.category = category;
     }
 
@@ -64,12 +64,12 @@ public class GeneralProductHome {
         this.time = time;
     }
 
-    public String getImage() {
-        return image;
+    public String getImage_uri() {
+        return image_uri;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage_uri(String image_uri) {
+        this.image_uri = image_uri;
     }
 
     public String getCategory() {

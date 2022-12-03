@@ -1,6 +1,7 @@
 package com.example.numad22fa_team49_project.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +42,13 @@ public class GeneralProductHomeAdapter extends RecyclerView.Adapter<GeneralProdu
         GeneralProductHome productHome = products.get(position);
         holder.name.setText(productHome.getName());
         holder.price.setText(productHome.getPrice());
-
-        Picasso.get().load(productHome.getImage()).into(holder.image);
+        Log.d("TAG_342", "onBindViewHolder: "+productHome.getImage_uri());
+        Picasso.get().load(productHome.getImage_uri()).into(holder.image);
+//        Picasso.with(iv.getContext())
+//                .load(imageUrl)
+//                .fit()
+//                .centerCrop()
+//                .into(holder.photo_thumbnail);
     }
 
     @Override
