@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ public class ProductViewActivity extends AppCompatActivity {
     TextView productName, productCost, productDescription, productRatingText;
     RatingBar productRating;
     GeneralProductHome product;
+    Button addToCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class ProductViewActivity extends AppCompatActivity {
         productCost = findViewById(R.id.product_view_cost);
         productRatingText = findViewById(R.id.product_view_rating_text);
         productRating = findViewById(R.id.product_view_rating);
+        addToCart = findViewById(R.id.add_to_cart_button);
 
         productName.setText(product.getName());
         productDescription.setText(product.getDescription());
@@ -39,6 +43,13 @@ public class ProductViewActivity extends AppCompatActivity {
         productRatingText.setText(product.getRating());
         productRating.setRating(Float.parseFloat(product.getRating()));
         Picasso.get().load(product.getImage_uri()).into(productImage);
+
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
 
