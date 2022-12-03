@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ArrayList<GeneralProductHome> generalProductHomes;
     FirebaseAuth mAuth;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -53,6 +55,11 @@ public class HomeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Log.d("TAG_564", "onCreate: "+mAuth.getUid());
+        sharedPreferences = getSharedPreferences("storeHunt",MODE_PRIVATE);
+        SharedPreferences.Editor editSharedPreferences = sharedPreferences.edit();
+
+        editSharedPreferences.putString("userId", mAuth.getUid());
+        editSharedPreferences.commit();
 
         generalProductsRecyclerView = findViewById(R.id.general_product_home_recycler_view);
         recentlyViewedProductsRecyclerView = findViewById(R.id.recently_viewed_products_recycler_view);
