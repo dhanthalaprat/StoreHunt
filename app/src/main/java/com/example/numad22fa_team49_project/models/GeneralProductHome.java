@@ -1,6 +1,8 @@
 package com.example.numad22fa_team49_project.models;
 
-public class GeneralProductHome {
+import java.io.Serializable;
+
+public class GeneralProductHome implements Serializable {
     String name, description, price, rating, date, time, image_uri, category;
 
     public GeneralProductHome() {

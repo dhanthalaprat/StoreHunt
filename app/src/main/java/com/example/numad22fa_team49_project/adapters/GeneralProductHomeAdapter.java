@@ -1,6 +1,7 @@
 package com.example.numad22fa_team49_project.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.numad22fa_team49_project.ProductViewActivity;
 import com.example.numad22fa_team49_project.R;
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class GeneralProductHomeAdapter extends RecyclerView.Adapter<GeneralProductHomeAdapter.GeneralProductHomeViewHolder> {
@@ -57,7 +61,7 @@ public class GeneralProductHomeAdapter extends RecyclerView.Adapter<GeneralProdu
     }
 
     public class GeneralProductHomeViewHolder extends RecyclerView.ViewHolder {
-
+        CardView productClick;
         TextView name, price;
         ImageView image;
         public GeneralProductHomeViewHolder(@NonNull View itemView) {
@@ -65,6 +69,18 @@ public class GeneralProductHomeAdapter extends RecyclerView.Adapter<GeneralProdu
             name = itemView.findViewById(R.id.prod_name);
             price = itemView.findViewById(R.id.prod_price);
             image = itemView.findViewById(R.id.prod_image);
+
+            productClick = itemView.findViewById(R.id.product_item_view);
+
+            productClick.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ProductViewActivity.class);
+                    intent.putExtra("product_info",  products.get(getAdapterPosition()));
+                    context.startActivity(intent);
+                }
+            });
+
         }
     }
 }
