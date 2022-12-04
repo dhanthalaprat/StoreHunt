@@ -19,10 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button loginButton;
-    EditText loginEmail, loginPassword;
     FirebaseAuth mAuth;
+    EditText loginEmail, loginPassword;
     TextView signUp;
+
+    Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +60,10 @@ public class LoginActivity extends AppCompatActivity {
        if (TextUtils.isEmpty(email)){
             Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
             loginEmail.requestFocus();
-        }
-        else if (TextUtils.isEmpty(password)){
+        } else if (TextUtils.isEmpty(password)){
             Toast.makeText(this,"Incorrect password",Toast.LENGTH_SHORT).show();
             loginPassword.requestFocus();
-        }
-        else{
+        } else{
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
