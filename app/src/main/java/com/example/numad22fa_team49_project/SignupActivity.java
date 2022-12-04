@@ -18,9 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignupActivity extends AppCompatActivity {
 
-    EditText signUpName, signUpEmail, signUpPassword;
-    Button signUpButton;
     FirebaseAuth mAuth;
+    Button signUpButton;
+    EditText signUpName, signUpEmail, signUpPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,23 +43,22 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void createAccountInFirebase() {
+        // Get the values from the Input fields and convert them to String type
         String name = signUpName.getText().toString();
         String email = signUpEmail.getText().toString();
         String password = signUpPassword.getText().toString();
 
+        // Form Validation
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this,"Please enter a valid name",Toast.LENGTH_SHORT).show();
             signUpName.requestFocus();
-        }
-        else if (TextUtils.isEmpty(email)){
+        } else if (TextUtils.isEmpty(email)){
             Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
             signUpEmail.requestFocus();
-        }
-        else if (TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Please enter a password to create account",Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(password)){
+            Toast.makeText(this,"Password is required to create an account",Toast.LENGTH_SHORT).show();
             signUpPassword.requestFocus();
-        }
-        else{
+        } else{
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
