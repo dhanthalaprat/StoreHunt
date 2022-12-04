@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Gallery;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.numad22fa_team49_project.adapters.GeneralProductHomeAdapter;
@@ -45,6 +46,8 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<GeneralProductHome> generalProductHomes;
     FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
+
+    ImageView cartView;
 
 
     @Override
@@ -98,6 +101,14 @@ public class HomeActivity extends AppCompatActivity {
 
         search = findViewById(R.id.searchButton);
 
+        cartView = findViewById(R.id.view_cart_button);
+
+        cartView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, CartActivity.class));
+            }
+        });
 
 
 
