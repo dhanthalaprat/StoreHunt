@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +22,7 @@ public class SellerLoginActivity extends AppCompatActivity {
     EditText loginEmail, loginPassword;
     Button loginButton;
     FirebaseAuth mAuth;
+    TextView sellerSignUp;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class SellerLoginActivity extends AppCompatActivity {
         loginEmail = findViewById(R.id.seller_login_email);
         loginPassword = findViewById(R.id.seller_login_password);
         mAuth = FirebaseAuth.getInstance();
+        sellerSignUp = findViewById(R.id.seller_signup);
         
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,8 +42,13 @@ public class SellerLoginActivity extends AppCompatActivity {
                 login();
             }
         });
-        
-        
+
+        sellerSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SellerLoginActivity.this, SellerRegisterationActivity.class));
+            }
+        });
     }
 
     private void login() {
