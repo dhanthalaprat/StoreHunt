@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    tools:context=".SellerRegisterationActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/grey_background"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,36 +16,37 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Store Hunt"
-                android:textColor="#603a91"
-                android:textSize="40sp"
+                android:text="Seller Registration"
+                android:textColor="#FD081F40"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_marginBottom="100dp"
                 android:layout_marginTop="100dp"/>
 
-            <!--            <EditText-->
-            <!--                android:id="@+id/login_email"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="50dp"-->
-            <!--                android:background="@drawable/edittext_background"-->
-            <!--                android:drawableStart="@drawable/ic_baseline_email_24"-->
-            <!--                android:textColorHint="#603a91"-->
-            <!--                android:ems="10"-->
-            <!--                android:inputType="textPersonName"-->
-            <!--                android:hint="Email"-->
-            <!--                android:layout_marginStart="32dp"-->
-            <!--                android:layout_marginTop="32dp"-->
-            <!--                android:layout_marginEnd="32dp"-->
-            <!--                android:padding="8dp"-->
-            <!--                android:drawablePadding="16dp"/>-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Full name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/seller_signup_full_name"
+                    android:inputType="text"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +59,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/login_email"
+                    android:id="@+id/seller_signup_email"
                     android:inputType="text"
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -81,72 +76,70 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/login_password"
+                    android:id="@+id/seller_signup_password"
                     android:inputType="text"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--            <EditText-->
-            <!--                android:id="@+id/login_password"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="50dp"-->
-            <!--                android:background="@drawable/edittext_background"-->
-            <!--                android:drawableStart="@drawable/ic_baseline_lock_24"-->
-            <!--                android:textColorHint="#603a91"-->
-            <!--                android:ems="10"-->
-            <!--                android:inputType="textPassword"-->
-            <!--                android:hint="Password"-->
-            <!--                android:layout_marginStart="32dp"-->
-            <!--                android:layout_marginTop="32dp"-->
-            <!--                android:layout_marginEnd="32dp"-->
-            <!--                android:padding="8dp"-->
-            <!--                android:drawablePadding="16dp"/>-->
-
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Confirm Password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/seller_signup_confirm_password"
+                    android:inputType="text"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/login_Button"
+                android:id="@+id/seller_register_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                style="@android:style/Widget.Button"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="40dp"
                 android:layout_gravity="center"
-                android:onClick="onClick"
-                android:background="@drawable/button_login_background"
-                android:text="Login" />
+                android:background="#00000000"
+                android:text="Create Account" />
 
-            <TextView
-                android:id="@+id/from_login_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="onClick"
-                android:foreground="@drawable/ripple_new_effect"
-                android:text="New User?  SignUp"
-                android:textColor="#603a91"
-                android:textAlignment="center"
-                android:padding="6dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="100dp"/>
+<!--            <TextView-->
+<!--                android:id="@+id/from_register_login"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:foreground="@drawable/ripple_new_effect"-->
+<!--                android:text="Existing User? Login"-->
+<!--                android:textColor="#060A23"-->
+<!--                android:textAlignment="center"-->
+<!--                android:padding="6dp"-->
+<!--                android:layout_marginTop="32dp"-->
+<!--                android:layout_marginStart="100dp"-->
+<!--                android:layout_marginEnd="100dp"/>-->
 
-            <TextView
-                android:id="@+id/login_as_seller"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="onClick"
-                android:foreground="@drawable/ripple_new_effect"
-                android:text="Login as seller"
-                android:textColor="#603a91"
-                android:textAlignment="center"
-                android:padding="6dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="100dp"/>
+<!--            <TextView-->
+<!--                android:id="@+id/textView5"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:foreground="@drawable/ripple_new_effect"-->
+<!--                android:text="Login as seller"-->
+<!--                android:textColor="#060A23"-->
+<!--                android:textAlignment="center"-->
+<!--                android:padding="6dp"-->
+<!--                android:layout_marginTop="32dp"-->
+<!--                android:layout_marginStart="100dp"-->
+<!--                android:layout_marginEnd="100dp"/>-->
         </LinearLayout>
     </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

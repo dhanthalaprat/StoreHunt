@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SellerLoginActivity">
 
     <ImageView
@@ -55,7 +54,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/login_password"
+                    android:id="@+id/seller_login_password"
                     android:inputType="text"
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -69,8 +68,25 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="40dp"
                 android:layout_gravity="center"
+                android:background="#00000000"
                 android:onClick="onClick"
                 android:text="Login"/>
+
+            <TextView
+                android:id="@+id/seller_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_new_effect"
+                android:text="New Seller?  SignUp"
+                android:textColor="#0F041C"
+                android:textAlignment="center"
+                android:padding="6dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"/>
+
 
         </LinearLayout>
     </ScrollView>

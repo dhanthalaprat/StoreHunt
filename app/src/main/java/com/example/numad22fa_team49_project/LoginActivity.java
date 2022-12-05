@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     FirebaseAuth mAuth;
     EditText loginEmail, loginPassword;
-    TextView signUp;
+    TextView signUp, loginAsSeller;
     Button loginButton;
 
     @Override
@@ -58,8 +58,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             loginUser();
         }
 
-        if(view.getId() == R.id.signup_button) {
+        else if(view.getId() == R.id.signup_button) {
             startActivity(new Intent(LoginActivity.this,SignupActivity.class));
+        }
+
+        else if(view.getId() == R.id.login_as_seller){
+            startActivity(new Intent(LoginActivity.this, SellerLoginActivity.class));
         }
     }
 
@@ -80,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if(task.isSuccessful()){
                         Toast.makeText(LoginActivity.this,"User logged in successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                        finish();
                     }else{
                         Toast.makeText(LoginActivity.this,"Login error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }

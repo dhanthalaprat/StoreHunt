@@ -12,7 +12,9 @@
         <entry key="app/src/main/res/drawable/top_background.xml" value="0.2515" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.4454416910807292" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_seller_login.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_seller_profile.xml" value="0.18229166666666666" />
+        <entry key="app/src/main/res/layout/activity_seller_registeration.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.23182678222656258" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.18229166666666666" />
       </map>
