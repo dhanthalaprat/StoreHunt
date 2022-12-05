@@ -55,10 +55,6 @@ public class HomeActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-   // Toolbar toolbar;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +63,6 @@ public class HomeActivity extends AppCompatActivity {
 
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
-       // toolbar=findViewById(R.id.toolbar);
-
-       // setSupportActionBar(toolbar);
-//        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,);
-
-
-
-
-
-
         mAuth = FirebaseAuth.getInstance();
 
         Log.d("TAG_564", "onCreate: "+mAuth.getUid());
@@ -108,6 +94,7 @@ public class HomeActivity extends AppCompatActivity {
                     generalProductHomes.add(productItem);
                 }
                 generalProductHomeAdapter.notifyDataSetChanged();
+                Log.d("TAG_90", "onDataChange: "+generalProductHomes.size());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

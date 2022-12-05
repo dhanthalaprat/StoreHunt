@@ -6,84 +6,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/drawer_layout"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/background"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start"
+    android:layout_height="match_parent"
     >
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/nav_view"
         app:headerLayout="@layout/header"
         app:menu="@menu/main_menu"
         android:layout_gravity="start"
         android:background="@color/cardview_light_background"/>
 
-
-   <include layout="@layout/appbar"/>
-
-
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true">
-        <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/background"
+        >
+
+        <include layout="@layout/appbar"/>
+
+
+        <androidx.core.widget.NestedScrollView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".HomeActivity"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/new_product_home_recycler_view"/>
-            <androidx.cardview.widget.CardView
+            android:fillViewport="true">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:cardElevation="5dp"
-                android:id="@+id/searchButton"
-                >
-                <LinearLayout
+                tools:context=".HomeActivity"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp">
-                    <ImageView
+                    android:id="@+id/new_product_home_recycler_view"/>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardElevation="5dp"
+                    android:id="@+id/searchButton"
+                    >
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_search_24"/>
+                        android:layout_margin="5dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_search_24"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Search"
-                        />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Recently viewed"
-                />
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recently_viewed_products_recycler_view"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Products you may like"
-                />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Search"
+                            />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recently viewed"
+                    />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recently_viewed_products_recycler_view"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Products you may like"
+                    />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/general_product_home_recycler_view"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/general_product_home_recycler_view"/>
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
+
+
