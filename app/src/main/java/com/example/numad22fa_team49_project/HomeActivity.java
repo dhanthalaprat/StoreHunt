@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
 
-    ImageView cartView;
+    ImageView cartView, menuButton;
 
 
     @Override
@@ -67,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         generalProductsRecyclerView = findViewById(R.id.general_product_home_recycler_view);
         recentlyViewedProductsRecyclerView = findViewById(R.id.recently_viewed_products_recycler_view);
         newProductRecyclerView = findViewById(R.id.new_product_home_recycler_view);
+        menuButton = findViewById(R.id.menu_button);
 
 
         generalProductHomes = new ArrayList<>();
@@ -107,6 +108,16 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, CartActivity.class));
+            }
+        });
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                Intent i = new Intent(HomeActivity.this,LoginActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
             }
         });
 
