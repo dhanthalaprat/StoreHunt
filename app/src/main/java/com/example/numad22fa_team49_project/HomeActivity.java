@@ -2,8 +2,10 @@ package com.example.numad22fa_team49_project;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -18,9 +20,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Gallery;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.numad22fa_team49_project.adapters.GeneralProductHomeAdapter;
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,11 +50,29 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
 
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+   // Toolbar toolbar;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+       // toolbar=findViewById(R.id.toolbar);
+
+       // setSupportActionBar(toolbar);
+//        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,);
+
+
+
+
+
 
         mAuth = FirebaseAuth.getInstance();
 
