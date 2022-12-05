@@ -15,6 +15,20 @@
         android:theme="@style/Theme.NUMAD22FA_Team49_Project"
         tools:targetApi="31">
         <activity
+            android:name=".SellerRegisterationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SellerLoginActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SearchActivity"
             android:exported="false">
             <meta-data
