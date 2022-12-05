@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ public class SellerRegisterationActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     EditText signUpEmail, signUpName, signUpPassword;
+    Button sellerRegistration;
+
 
 
     @Override
@@ -30,7 +34,14 @@ public class SellerRegisterationActivity extends AppCompatActivity {
         signUpEmail = findViewById(R.id.seller_signup_email);
         signUpName = findViewById(R.id.seller_signup_full_name);
         signUpPassword = findViewById(R.id.seller_signup_password);
+        sellerRegistration = findViewById(R.id.seller_register_button);
 
+        sellerRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerUser();
+            }
+        });
 
 
     }

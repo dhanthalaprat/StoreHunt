@@ -54,7 +54,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/login_password"
+                    android:id="@+id/seller_login_password"
                     android:inputType="text"
                     />
             </com.google.android.material.textfield.TextInputLayout>
