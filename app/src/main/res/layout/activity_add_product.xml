@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddProductActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <Button
         android:layout_width="wrap_content"

@@ -9,41 +9,51 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
+public class SellerRegisterationActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    Button signUpButton;
-    EditText signUpName, signUpEmail, signUpPassword;
+    EditText signUpEmail, signUpName, signUpPassword;
+    Button sellerRegistration;
+
+    DatabaseReference mReference;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-
-        signUpButton = findViewById(R.id.signup_button);
-        signUpName = findViewById(R.id.signup_fullname);
-        signUpEmail = findViewById(R.id.signup_email);
-        signUpPassword = findViewById(R.id.signup_password);
+        setContentView(R.layout.activity_seller_registeration);
 
         mAuth = FirebaseAuth.getInstance();
+
+        signUpEmail = findViewById(R.id.seller_signup_email);
+        signUpName = findViewById(R.id.seller_signup_full_name);
+        signUpPassword = findViewById(R.id.seller_signup_password);
+        sellerRegistration = findViewById(R.id.seller_register_button);
+
+        mReference = FirebaseDatabase.getInstance().getReference().child("seller");
+
+        sellerRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerUser();
+            }
+        });
+
+
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view.getId() == R.id.signup_button) {
-            createAccountInFirebase();
-        }
-    }
-
-    private void createAccountInFirebase() {
-        // Get the values from the Input fields and convert them to String type
+    public void registerUser(){
         String name = signUpName.getText().toString();
         String email = signUpEmail.getText().toString();
         String password = signUpPassword.getText().toString();
@@ -63,10 +73,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(SignupActivity.this,"User signed up successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignupActivity.this,HomeActivity.class));
+                        Toast.makeText(SellerRegisterationActivity.this,"User signed up successfully", Toast.LENGTH_SHORT).show();
+                        mReference.setValue(mAuth.getUid());
+                        startActivity(new Intent(SellerRegisterationActivity.this,SellerProfileActivity.class));
                     }else{
-                        Toast.makeText(SignupActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SellerRegisterationActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });
