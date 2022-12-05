@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.numad22fa_team49_project.adapters.CartItemViewAdapter;
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
@@ -27,6 +29,7 @@ public class CartActivity extends AppCompatActivity {
     ArrayList<GeneralProductHome> products;
     RecyclerView cartItemRecyclerView;
     CartItemViewAdapter cartItemViewAdapter;
+    ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class CartActivity extends AppCompatActivity {
         cartItemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartItemViewAdapter = new CartItemViewAdapter(this,products);
         cartItemRecyclerView.setAdapter(cartItemViewAdapter);
+        backButton = findViewById(R.id.back_button);
 
 
         mReference.addValueEventListener(new ValueEventListener() {
@@ -60,6 +64,13 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 
