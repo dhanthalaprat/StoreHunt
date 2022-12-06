@@ -65,12 +65,12 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
         editSharedPreferences.putString("sellerId", mAuth.getUid());
         editSharedPreferences.apply();
 
-        Log.d("TAG_123", "onCreate: "+mAuth.getUid());
+        Log.d("TAG_123", "onCreate: " + mAuth.getUid());
         mReference = FirebaseDatabase.getInstance().getReference("seller").child(mAuth.getUid());
 
         productArrayList = new ArrayList<>();
-        adapter = new GeneralProductHomeAdapter(this,productArrayList);
-        sellerProductsRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        adapter = new GeneralProductHomeAdapter(this, productArrayList);
+        sellerProductsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         sellerProductsRecyclerView.setAdapter(adapter);
 
         orderModels = new ArrayList<>();
@@ -79,10 +79,10 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
         newOrdersRecyclerView.setAdapter(newOrderRecyclerViewAdapter);
 
 
-        if(!TextUtils.isEmpty(name)){
-            sellerName.setText("Hi "+name);
+        if (!TextUtils.isEmpty(name)) {
+            sellerName.setText("Hi " + name);
             mReference.child("name").setValue(name);
-        }else{
+        } else {
             mReference.child("name").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -91,10 +91,10 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
 //                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
 //                         model = snapshot.getValue(SellerModel.class);
 //                        Log.d("TAG_672", "onDataChange: "+dataSnapshot.getKey());
-                    if(snapshot.getValue()!=null){
+                    if (snapshot.getValue() != null) {
                         name = snapshot.getValue().toString();
                     }
-                    sellerName.setText("Hi "+name);
+                    sellerName.setText("Hi " + name);
                 }
 
                 @Override
@@ -106,11 +106,11 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
             mReference.child("products").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         GeneralProductHome products = dataSnapshot.getValue(GeneralProductHome.class);
                         productArrayList.add(products);
                     }
-                    Log.d("TAG_342", "onDataChange: "+productArrayList.size());
+                    Log.d("TAG_342", "onDataChange: " + productArrayList.size());
                     adapter.notifyDataSetChanged();
                 }
 
@@ -122,7 +122,7 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
             mReference.child("orders").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot data : snapshot.getChildren()){
+                    for (DataSnapshot data : snapshot.getChildren()) {
                         NewOrderModel order = data.getValue(NewOrderModel.class);
                         orderModels.add(order);
                     }
@@ -135,16 +135,17 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
                 }
             });
         }
+    }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v){
         int theId = v.getId();
 
-        if(theId == R.id.add_product) {
+        if (theId == R.id.add_product) {
             startActivity(new Intent(SellerProfileActivity.this, AddProductActivity.class));
         }
 
-        if(theId == R.id.newOrdersViewAll) {
+        if (theId == R.id.newOrdersViewAll) {
             startActivity(new Intent(new Intent(SellerProfileActivity.this, ViewNewOrdersSellerViewActivity.class)));
         }
     }
