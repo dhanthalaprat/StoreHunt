@@ -58,6 +58,13 @@ public class CartActivity extends AppCompatActivity {
                     products.add(cartItem);
                     Log.d("TAG_134", "onCreate: "+sharedPreferences.getString("userId","")+"-"+products.get(0));
                 }
+                double totalPrice = 0.0;
+                for(int i = 0; i<products.size(); i++) {
+                    totalPrice += Float.parseFloat(products.get(i).getPrice().substring(1));
+                }
+                totalPrice = Math.round(totalPrice * 100.0) / 100.0;
+                String finalPrice = "$" + totalPrice;
+                Log.d("TAG_135",finalPrice);
                 cartItemViewAdapter.notifyDataSetChanged();
             }
 
