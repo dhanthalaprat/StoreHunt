@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.numad22fa_team49_project.adapters.CartItemViewAdapter;
@@ -30,6 +31,7 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView cartItemRecyclerView;
     CartItemViewAdapter cartItemViewAdapter;
     ImageView backButton;
+    Button totalPriceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class CartActivity extends AppCompatActivity {
         cartItemViewAdapter = new CartItemViewAdapter(this,products);
         cartItemRecyclerView.setAdapter(cartItemViewAdapter);
         backButton = findViewById(R.id.back_button);
+        totalPriceButton = findViewById(R.id.total_price);
 
 
         mReference.addValueEventListener(new ValueEventListener() {
@@ -65,6 +68,7 @@ public class CartActivity extends AppCompatActivity {
                 totalPrice = Math.round(totalPrice * 100.0) / 100.0;
                 String finalPrice = "$" + totalPrice;
                 Log.d("TAG_135",finalPrice);
+                totalPriceButton.setText("Total: "+finalPrice);
                 cartItemViewAdapter.notifyDataSetChanged();
             }
 

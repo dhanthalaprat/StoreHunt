@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,7 +40,6 @@
             android:id="@+id/app_caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="Discover Small Businesses"
             android:textColor="@color/white"
             android:layout_gravity="center" />
