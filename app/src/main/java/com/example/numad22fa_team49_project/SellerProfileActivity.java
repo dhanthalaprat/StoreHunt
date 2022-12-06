@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SellerProfileActivity extends AppCompatActivity {
+public class SellerProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     FloatingActionButton addProduct;
     TextView viewNewOrders, sellerName;
@@ -136,21 +136,16 @@ public class SellerProfileActivity extends AppCompatActivity {
             });
         }
 
+    @Override
+    public void onClick(View v) {
+        int theId = v.getId();
 
-        addProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SellerProfileActivity.this, AddProductActivity.class));
-            }
-        });
+        if(theId == R.id.add_product) {
+            startActivity(new Intent(SellerProfileActivity.this, AddProductActivity.class));
+        }
 
-        viewNewOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SellerProfileActivity.this, ViewNewOrdersSellerViewActivity.class));
-            }
-        });
-
-
+        if(theId == R.id.newOrdersViewAll) {
+            startActivity(new Intent(new Intent(SellerProfileActivity.this, ViewNewOrdersSellerViewActivity.class)));
+        }
     }
 }
