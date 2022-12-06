@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -42,6 +43,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     RecyclerView generalProductsRecyclerView;
     GeneralProductHomeAdapter generalProductHomeAdapter;
+
+    static final float END_SCALE=0.7f;
+    LinearLayout contentView;
 
     RecyclerView recentlyViewedProductsRecyclerView;
     RecyclerView newProductRecyclerView;
@@ -65,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        contentView= findViewById(R.id.content);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -139,6 +144,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    //Navigation Drawer functions
+
     private void navigationDrawer() {
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
@@ -153,8 +160,37 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        animateNavigationDrawer();
+        
+        
+
     }
 
+    private void animateNavigationDrawer() {
+        drawerLayout.setScrimColor(getResources().getColor(androidx.cardview.R.color.cardview_shadow_start_color));
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                // Scale the View based on current slide offset
+                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                contentView.setScaleX(offsetScale);
+                contentView.setScaleY(offsetScale);
+                // Translate the View, accounting for the scaled width
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                contentView.setTranslationX(xTranslation);
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerVisible(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else super.onBackPressed();
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return true;
