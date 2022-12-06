@@ -179,7 +179,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 // Translate the View, accounting for the scaled width
                 final float xOffset = drawerView.getWidth() * slideOffset;
                 final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
-                final float xTranslation = xOffset - xOffsetDiff;
+                final float xTranslation = -xOffset +xOffsetDiff;
                 contentView.setTranslationX(xTranslation);
             }
         });
