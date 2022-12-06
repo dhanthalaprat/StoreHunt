@@ -153,9 +153,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (drawerLayout.isDrawerVisible(GravityCompat.START))
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                else drawerLayout.openDrawer(GravityCompat.START);
+                if (drawerLayout.isDrawerVisible(GravityCompat.END))
+                    drawerLayout.closeDrawer(GravityCompat.END);
+                else drawerLayout.openDrawer(GravityCompat.END);
 
             }
         });

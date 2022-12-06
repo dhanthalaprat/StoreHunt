@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -74,8 +75,11 @@ public class SellerRegisterationActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(SellerRegisterationActivity.this,"User signed up successfully", Toast.LENGTH_SHORT).show();
-                        mReference.setValue(mAuth.getUid());
-                        startActivity(new Intent(SellerRegisterationActivity.this,SellerProfileActivity.class));
+//                        mReference.push().setValue(mAuth.getUid());
+                        Intent intent = new Intent(SellerRegisterationActivity.this,SellerProfileActivity.class);
+                        intent.setFlags(Intent. FLAG_ACTIVITY_NEW_TASK | Intent. FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("username_registration",name);
+                        startActivity(intent);
                     }else{
                         Toast.makeText(SellerRegisterationActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
