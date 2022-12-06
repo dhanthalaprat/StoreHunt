@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SellerProfileActivity extends AppCompatActivity {
+public class SellerProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     FloatingActionButton addProduct;
     TextView viewNewOrders, sellerName;
@@ -50,16 +50,18 @@ public class SellerProfileActivity extends AppCompatActivity {
         if(!TextUtils.isEmpty(name)){
             sellerName.setText("Hi "+name);
             mReference.child("name").setValue(name);
-        }else{
+        } else{
             mReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    SellerModel model = new SellerModel();
+                    //SellerModel model = new SellerModel();
                     String name = "";
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                         model = dataSnapshot.getValue(SellerModel.class);
+
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        //model = dataSnapshot.getValue(SellerModel.class);
                         name = dataSnapshot.getValue().toString();
                     }
+
                     sellerName.setText(name);
                 }
 
@@ -69,20 +71,18 @@ public class SellerProfileActivity extends AppCompatActivity {
                 }
             });
         }
+    }
 
+    @Override
+    public void onClick(View v) {
+        int theId = v.getId();
 
-        addProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SellerProfileActivity.this, AddProductActivity.class));
-            }
-        });
+        if(theId == R.id.add_product) {
+            startActivity(new Intent(SellerProfileActivity.this, AddProductActivity.class));
+        }
 
-        viewNewOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent());
-            }
-        });
+        if(theId == R.id.newOrdersViewAll) {
+            startActivity(new Intent());
+        }
     }
 }
