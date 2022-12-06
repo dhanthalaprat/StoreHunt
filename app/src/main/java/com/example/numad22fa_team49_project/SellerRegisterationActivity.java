@@ -27,6 +27,7 @@ public class SellerRegisterationActivity extends AppCompatActivity {
     Button sellerRegistration;
 
     DatabaseReference mReference;
+    SharedPreferences sharedPreferences;
 
 
 
@@ -36,6 +37,8 @@ public class SellerRegisterationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_seller_registeration);
 
         mAuth = FirebaseAuth.getInstance();
+        sharedPreferences = getSharedPreferences("storeHunt", MODE_PRIVATE);
+
 
         signUpEmail = findViewById(R.id.seller_signup_email);
         signUpName = findViewById(R.id.seller_signup_full_name);
@@ -79,6 +82,9 @@ public class SellerRegisterationActivity extends AppCompatActivity {
                         Intent intent = new Intent(SellerRegisterationActivity.this,SellerProfileActivity.class);
                         intent.setFlags(Intent. FLAG_ACTIVITY_NEW_TASK | Intent. FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra("username_registration",name);
+                        SharedPreferences.Editor editSharedPreferences = sharedPreferences.edit();
+                        editSharedPreferences.putBoolean("asSeller", true);
+                        editSharedPreferences.apply();
                         startActivity(intent);
                     }else{
                         Toast.makeText(SellerRegisterationActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
