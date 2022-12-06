@@ -56,13 +56,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if(view.getId() == R.id.login_Button) {
             loginUser();
-        }
-
-        else if(view.getId() == R.id.signup_button) {
+        } else if(view.getId() == R.id.from_login_signup) {
             startActivity(new Intent(LoginActivity.this,SignupActivity.class));
-        }
-
-        else if(view.getId() == R.id.login_as_seller){
+        } else if(view.getId() == R.id.login_as_seller) {
             startActivity(new Intent(LoginActivity.this, SellerLoginActivity.class));
         }
     }
@@ -71,21 +67,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = loginEmail.getText().toString();
         String password = loginPassword.getText().toString();
 
-       if (TextUtils.isEmpty(email)){
+       if (TextUtils.isEmpty(email)) {
             Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
             loginEmail.requestFocus();
-        } else if (TextUtils.isEmpty(password)){
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this,"Incorrect password",Toast.LENGTH_SHORT).show();
             loginPassword.requestFocus();
-        } else{
+        } else {
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if(task.isSuccessful()) {
                         Toast.makeText(LoginActivity.this,"User logged in successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                         finish();
-                    }else{
+                    } else{
                         Toast.makeText(LoginActivity.this,"Login error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
