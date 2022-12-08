@@ -123,17 +123,18 @@
                                     >
 
                                     <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:src="@drawable/collectibles_dolls"
-                                        android:scaleType="centerCrop"/>
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:src="@drawable/toys"
+                                        android:scaleType="centerCrop"
+                                        android:layout_gravity="center"/>
 
                                 </androidx.cardview.widget.CardView>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    tools:text="Clothing"
+                                    android:text="Toys"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/black"
@@ -155,17 +156,18 @@
                                     >
 
                                     <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:src="@drawable/collectibles_dolls"
-                                        android:scaleType="centerCrop"/>
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:src="@drawable/homedecor"
+                                        android:scaleType="centerCrop"
+                                        android:layout_gravity="center"/>
 
                                 </androidx.cardview.widget.CardView>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    tools:text="Clothing"
+                                    tools:text="Home Decor"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/black"
@@ -188,17 +190,18 @@
                                     >
 
                                     <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:src="@drawable/collectibles_dolls"
-                                        android:scaleType="centerCrop"/>
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:src="@drawable/gardening"
+                                        android:scaleType="centerCrop"
+                                        android:layout_gravity="center"/>
 
                                 </androidx.cardview.widget.CardView>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    tools:text="Clothing"
+                                    tools:text="Gardening"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/black"
@@ -231,17 +234,18 @@
                                     >
 
                                     <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:src="@drawable/collectibles_dolls"
-                                        android:scaleType="centerCrop"/>
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:src="@drawable/crafts"
+                                        android:scaleType="centerCrop"
+                                        android:layout_gravity="center"/>
 
                                 </androidx.cardview.widget.CardView>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    tools:text="Clothing"
+                                    tools:text="Crafts"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/black"
@@ -263,17 +267,18 @@
                                     >
 
                                     <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:src="@drawable/collectibles_dolls"
-                                        android:scaleType="centerCrop"/>
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:src="@drawable/arts"
+                                        android:scaleType="centerCrop"
+                                        android:layout_gravity="center"/>
 
                                 </androidx.cardview.widget.CardView>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    tools:text="Clothing"
+                                    tools:text="Arts"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/black"
@@ -296,17 +301,18 @@
                                     >
 
                                     <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:src="@drawable/collectibles_dolls"
-                                        android:scaleType="centerCrop"/>
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:src="@drawable/collectibles"
+                                        android:scaleType="centerCrop"
+                                        android:layout_gravity="center"/>
 
                                 </androidx.cardview.widget.CardView>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    tools:text="Clothing"
+                                    tools:text="Collectibles"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/black"
