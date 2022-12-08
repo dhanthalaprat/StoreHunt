@@ -42,7 +42,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView generalProductsRecyclerView;
-    GeneralProductHomeAdapter generalProductHomeAdapter;
+    GeneralProductHomeAdapter generalProductHomeAdapter, recentProductsAdapter;
 
     static final float END_SCALE=0.7f;
     LinearLayout contentView;
@@ -51,9 +51,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView newProductRecyclerView;
 
     CardView search;
-    DatabaseReference reference;
+    DatabaseReference reference, recentRef;
 
-    ArrayList<GeneralProductHome> generalProductHomes;
+    ArrayList<GeneralProductHome> generalProductHomes, recentProducts;
     FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
 
@@ -111,13 +111,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        recentProducts = new ArrayList<>();
+        recentProductsAdapter = new GeneralProductHomeAdapter(this, recentProducts);
         recentlyViewedProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recentlyViewedProductsRecyclerView.setAdapter(generalProductHomeAdapter);
+        recentlyViewedProductsRecyclerView.setAdapter(recentProductsAdapter);
 
-        newProductRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        SnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(newProductRecyclerView);
-        newProductRecyclerView.setAdapter(generalProductHomeAdapter);
+//        newProductRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+//        SnapHelper snapHelper = new PagerSnapHelper();
+//        snapHelper.attachToRecyclerView(newProductRecyclerView);
+//        newProductRecyclerView.setAdapter(generalProductHomeAdapter);
 
         search = findViewById(R.id.searchButton);
 
@@ -131,6 +133,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
         navigationDrawer();
 
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+            }
+        });
+
+        recentRef = FirebaseDatabase.getInstance().getReference("user").child(mAuth.getUid());
+
+        recentRef.child("recent").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                recentProducts.clear();
+                for(DataSnapshot data: snapshot.getChildren()){
+                    GeneralProductHome productHome = data.getValue(GeneralProductHome.class);
+                    recentProducts.add(productHome);
+                }
+                recentProductsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 //        menuButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -140,6 +168,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //                startActivity(i);
 //            }
 //        });
+
 
 
     }
