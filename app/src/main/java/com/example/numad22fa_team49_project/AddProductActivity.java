@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
@@ -39,6 +40,7 @@ public class AddProductActivity extends AppCompatActivity {
     DatabaseReference productReference;
     String imageUri;
     EditText productName, productCost, productDescription, productCategory;
+    ImageView back;
 
 
     @Override
@@ -48,6 +50,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         selectGallery = findViewById(R.id.select_image_gallery);
         uploadProduct = findViewById(R.id.upload_product);
+        back = findViewById(R.id.back_button_add_product);
 
         productName = findViewById(R.id.add_product_name);
         productCost = findViewById(R.id.add_product_cost);
@@ -56,6 +59,13 @@ public class AddProductActivity extends AppCompatActivity {
 
         saveImage = FirebaseStorage.getInstance().getReference().child("product");
         productReference = FirebaseDatabase.getInstance().getReference("products");
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         selectGallery.setOnClickListener(new View.OnClickListener() {
             @Override
