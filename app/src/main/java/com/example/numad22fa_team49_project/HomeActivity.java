@@ -212,7 +212,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(HomeActivity.this, CartActivity.class));
             }
         });
-//        navigationDrawer();
+        navigationDrawer();
 
 //        search.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -297,12 +297,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
-        menuButton.setOnClickListener(new View.OnClickListener() {
+        profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (drawerLayout.isDrawerVisible(GravityCompat.END))
-                    drawerLayout.closeDrawer(GravityCompat.END);
-                else drawerLayout.openDrawer(GravityCompat.END);
+                if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                else drawerLayout.openDrawer(GravityCompat.START);
 
             }
         });
@@ -326,7 +326,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 // Translate the View, accounting for the scaled width
                 final float xOffset = drawerView.getWidth() * slideOffset;
                 final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
-                final float xTranslation = -xOffset +xOffsetDiff;
+                final float xTranslation = xOffset-xOffsetDiff;
                 contentView.setTranslationX(xTranslation);
             }
         });

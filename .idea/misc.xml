@@ -17,6 +17,9 @@
         <entry key="app/src/main/res/layout/activity_seller_registeration.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.23182678222656258" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.18229166666666666" />
+        <entry key="app/src/main/res/layout/appbar.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/header.xml" value="0.2520833333333333" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.2520833333333333" />
       </map>
     </option>
   </component>

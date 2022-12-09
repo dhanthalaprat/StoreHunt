@@ -110,6 +110,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
+                android:onClick="onClick"
                 android:background="@drawable/button_login_background"
                 android:text="Create Account" />
 
@@ -124,6 +125,7 @@
                 android:focusable="true"
                 android:foreground="@drawable/ripple_new_effect"
                 android:padding="6dp"
+                android:onClick="onClick"
                 android:text="Existing User? Login"
                 android:textAlignment="center"
                 android:textColor="#603a91" />
@@ -139,6 +141,7 @@
                 android:focusable="true"
                 android:foreground="@drawable/ripple_new_effect"
                 android:padding="6dp"
+                android:onClick="onClick"
                 android:text="Login as seller"
                 android:textAlignment="center"
                 android:textColor="#603a91" />
