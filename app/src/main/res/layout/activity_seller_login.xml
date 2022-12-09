@@ -73,13 +73,13 @@
                 android:text="Login"/>
 
             <TextView
-                android:id="@+id/from_login_signup"
+                android:id="@+id/seller_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/ripple_new_effect"
-                android:text="New User?  SignUp"
+                android:text="New Seller?  SignUp"
                 android:textColor="#0F041C"
                 android:textAlignment="center"
                 android:padding="6dp"

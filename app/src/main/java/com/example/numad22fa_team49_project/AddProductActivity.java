@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
@@ -30,11 +31,14 @@ import java.util.HashMap;
 
 public class AddProductActivity extends AppCompatActivity {
 
-    Button selectGallery;
+    Button selectGallery, uploadProduct;
     StorageReference saveImage;
     String downloadedImage;
     String key;
     DatabaseReference productReference;
+    String imageUri;
+    EditText productName, productCost, productDescription;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class AddProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_product);
 
         selectGallery = findViewById(R.id.select_image_gallery);
+        uploadProduct = findViewById(R.id.upload_product);
+
         saveImage = FirebaseStorage.getInstance().getReference().child("product");
         productReference = FirebaseDatabase.getInstance().getReference("products");
 
@@ -49,6 +55,13 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 selectImageFromGallery();
+            }
+        });
+
+        uploadProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }
@@ -105,7 +118,8 @@ public class AddProductActivity extends AppCompatActivity {
                                 newImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
-                                        saveProductToDatabase(uri.toString());
+//                                        saveProductToDatabase(uri.toString());
+                                        imageUri = uri.toString();
                                     }
                                 });
                                 Toast.makeText(AddProductActivity.this,"retrived image added to database",Toast.LENGTH_SHORT).show();
@@ -119,7 +133,7 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
 
-    private void saveProductToDatabase(String url) {
+    private void saveProductToDatabase() {
 
         HashMap<String, Object> productMap = new HashMap<>();
         productMap.put("pid",key);
@@ -128,7 +142,7 @@ public class AddProductActivity extends AppCompatActivity {
         productMap.put("date","date");
         productMap.put("time","time");
         productMap.put("category","category");
-        productMap.put("image_uri",url);
+        productMap.put("image_uri",imageUri);
         productMap.put("rating","rating");
         productMap.put("description","description");
 //        GeneralProductHome productHome = new GeneralProductHome("name","description","100","4","date","time",url,"category");

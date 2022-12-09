@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +23,8 @@ public class SellerLoginActivity extends AppCompatActivity {
     EditText loginEmail, loginPassword;
     Button loginButton;
     FirebaseAuth mAuth;
+    TextView sellerSignUp;
+    SharedPreferences sharedPreferences;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,11 @@ public class SellerLoginActivity extends AppCompatActivity {
         loginEmail = findViewById(R.id.seller_login_email);
         loginPassword = findViewById(R.id.seller_login_password);
         mAuth = FirebaseAuth.getInstance();
+        sellerSignUp = findViewById(R.id.seller_signup);
+        sharedPreferences = getSharedPreferences("storeHunt", MODE_PRIVATE);
+
+
+
         
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,8 +48,13 @@ public class SellerLoginActivity extends AppCompatActivity {
                 login();
             }
         });
-        
-        
+
+        sellerSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SellerLoginActivity.this, SellerRegisterationActivity.class));
+            }
+        });
     }
 
     private void login() {
@@ -60,6 +74,9 @@ public class SellerLoginActivity extends AppCompatActivity {
                     if(task.isSuccessful()){
                         Toast.makeText(SellerLoginActivity.this,"User logged in successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SellerLoginActivity.this,SellerProfileActivity.class));
+                        SharedPreferences.Editor editSharedPreferences = sharedPreferences.edit();
+                        editSharedPreferences.putBoolean("asSeller", true);
+                        editSharedPreferences.apply();
                         finish();
                     }else{
                         Toast.makeText(SellerLoginActivity.this,"Login error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();

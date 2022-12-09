@@ -1,6 +1,7 @@
 package com.example.numad22fa_team49_project;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +10,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.numad22fa_team49_project.adapters.CartItemViewAdapter;
@@ -30,6 +33,7 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView cartItemRecyclerView;
     CartItemViewAdapter cartItemViewAdapter;
     ImageView backButton;
+    Button totalPriceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class CartActivity extends AppCompatActivity {
         cartItemViewAdapter = new CartItemViewAdapter(this,products);
         cartItemRecyclerView.setAdapter(cartItemViewAdapter);
         backButton = findViewById(R.id.back_button);
+        totalPriceButton = findViewById(R.id.total_price);
 
 
         mReference.addValueEventListener(new ValueEventListener() {
@@ -58,6 +63,14 @@ public class CartActivity extends AppCompatActivity {
                     products.add(cartItem);
                     Log.d("TAG_134", "onCreate: "+sharedPreferences.getString("userId","")+"-"+products.get(0));
                 }
+                double totalPrice = 0.0;
+                for(int i = 0; i<products.size(); i++) {
+                    totalPrice += Float.parseFloat(products.get(i).getPrice().substring(1));
+                }
+                totalPrice = Math.round(totalPrice * 100.0) / 100.0;
+                String finalPrice = "$" + totalPrice;
+                Log.d("TAG_135",finalPrice);
+                totalPriceButton.setText("Total: "+finalPrice);
                 cartItemViewAdapter.notifyDataSetChanged();
             }
 
@@ -71,6 +84,20 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+        totalPriceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CheckoutDialog dialog = new CheckoutDialog(products);
+                dialog.show(getSupportFragmentManager(),"checkout");
+
+//                LayoutInflater inflater = getLayoutInflater();
+//                View dialoglayout = inflater.inflate(R.layout.checkout_dialog, null);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+//                builder.setView(dialoglayout);
+//                builder.show();
             }
         });
 

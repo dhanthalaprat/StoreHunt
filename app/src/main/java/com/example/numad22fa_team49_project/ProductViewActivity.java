@@ -51,6 +51,7 @@ public class ProductViewActivity extends AppCompatActivity {
         productRatingText.setText(product.getRating());
         productRating.setRating(Float.parseFloat(product.getRating()));
         Picasso.get().load(product.getImage_uri()).into(productImage);
+        mReference.child(sharedPreferences.getString("userId","")).child("recent").child(product.getName()).setValue(product);
 
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override

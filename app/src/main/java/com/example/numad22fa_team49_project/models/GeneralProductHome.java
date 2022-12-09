@@ -3,11 +3,11 @@ package com.example.numad22fa_team49_project.models;
 import java.io.Serializable;
 
 public class GeneralProductHome implements Serializable {
-    String name, description, price, rating, date, time, image_uri, category;
+    String name, description, price, rating, date, time, image_uri, category, seller_id;
 
     public GeneralProductHome() {
     }
-    public GeneralProductHome(String name, String description, String price, String rating, String date, String time, String image_uri, String category) {
+    public GeneralProductHome(String name, String description, String price, String rating, String date, String time, String image_uri, String category, String seller_id) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -16,6 +16,7 @@ public class GeneralProductHome implements Serializable {
         this.time = time;
         this.image_uri = image_uri;
         this.category = category;
+        this.seller_id = seller_id;
     }
 
     public String getName() {
@@ -80,5 +81,13 @@ public class GeneralProductHome implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(String seller_id) {
+        this.seller_id = seller_id;
     }
 }
