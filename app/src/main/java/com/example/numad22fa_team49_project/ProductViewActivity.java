@@ -2,6 +2,7 @@ package com.example.numad22fa_team49_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +19,7 @@ import com.squareup.picasso.Picasso;
 
 public class ProductViewActivity extends AppCompatActivity {
 
-    ImageView productImage;
+    ImageView productImage, back;
     TextView productName, productCost, productDescription, productRatingText;
     RatingBar productRating;
     GeneralProductHome product;
@@ -26,6 +27,7 @@ public class ProductViewActivity extends AppCompatActivity {
     DatabaseReference mReference;
     SharedPreferences sharedPreferences;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,7 @@ public class ProductViewActivity extends AppCompatActivity {
         sharedPreferences =getSharedPreferences("storeHunt",MODE_PRIVATE);
         mReference = FirebaseDatabase.getInstance().getReference().child("user");
 
+        back = findViewById(R.id.back_button_product);
         productImage = findViewById(R.id.product_view_image);
         productName = findViewById(R.id.product_view_name);
         productDescription = findViewById(R.id.product_view_description);
@@ -52,6 +55,13 @@ public class ProductViewActivity extends AppCompatActivity {
         productRating.setRating(Float.parseFloat(product.getRating()));
         Picasso.get().load(product.getImage_uri()).into(productImage);
         mReference.child(sharedPreferences.getString("userId","")).child("recent").child(product.getName()).setValue(product);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
