@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +38,7 @@ public class AddProductActivity extends AppCompatActivity {
     String key;
     DatabaseReference productReference;
     String imageUri;
-    EditText productName, productCost, productDescription;
+    EditText productName, productCost, productDescription, productCategory;
 
 
     @Override
@@ -47,6 +48,11 @@ public class AddProductActivity extends AppCompatActivity {
 
         selectGallery = findViewById(R.id.select_image_gallery);
         uploadProduct = findViewById(R.id.upload_product);
+
+        productName = findViewById(R.id.add_product_name);
+        productCost = findViewById(R.id.add_product_cost);
+        productDescription = findViewById(R.id.add_product_description);
+        productCategory  = findViewById(R.id.add_product_category);
 
         saveImage = FirebaseStorage.getInstance().getReference().child("product");
         productReference = FirebaseDatabase.getInstance().getReference("products");
@@ -61,7 +67,7 @@ public class AddProductActivity extends AppCompatActivity {
         uploadProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                saveProductToDatabase();
             }
         });
     }
@@ -135,30 +141,54 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void saveProductToDatabase() {
 
-        HashMap<String, Object> productMap = new HashMap<>();
-        productMap.put("pid",key);
-        productMap.put("price","price");
-        productMap.put("name","name");
-        productMap.put("date","date");
-        productMap.put("time","time");
-        productMap.put("category","category");
-        productMap.put("image_uri",imageUri);
-        productMap.put("rating","rating");
-        productMap.put("description","description");
-//        GeneralProductHome productHome = new GeneralProductHome("name","description","100","4","date","time",url,"category");
-        productReference.child(key).updateChildren(productMap)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(AddProductActivity.this,"Added sucessefully",Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(AddProductActivity.this,""+task.getException().toString(),Toast.LENGTH_SHORT).show();
+        String name, cost, category, description;
+        name = productName.getText().toString();
+        cost = productCost.getText().toString();
+        category = productCategory.getText().toString();
+        description = productDescription.getText().toString();
 
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(this,"Please enter a valid name",Toast.LENGTH_SHORT).show();
+            productName.requestFocus();
+        }else if(TextUtils.isEmpty(cost)){
+            Toast.makeText(this,"Please enter a valid price",Toast.LENGTH_SHORT).show();
+            productCost.requestFocus();
+        }else if(TextUtils.isEmpty(category)){
+            Toast.makeText(this,"Please enter a valid category",Toast.LENGTH_SHORT).show();
+            productCategory.requestFocus();
+        }else if(TextUtils.isEmpty(description)){
+            Toast.makeText(this,"Please enter a valid description",Toast.LENGTH_SHORT).show();
+            productDescription.requestFocus();
+        }else{
+            HashMap<String, Object> productMap = new HashMap<>();
+            productMap.put("pid",key);
+            productMap.put("price",cost);
+            productMap.put("name",name);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd, yyyy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss a");
+            productMap.put("date",dateFormat+"");
+            productMap.put("time",timeFormat+"");
+            productMap.put("category",category);
+            productMap.put("image_uri",imageUri);
+            productMap.put("rating","0");
+            productMap.put("description",description);
+//        GeneralProductHome productHome = new GeneralProductHome("name","description","100","4","date","time",url,"category");
+            productReference.child(key).updateChildren(productMap)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(AddProductActivity.this,"Added sucessefully",Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(AddProductActivity.this,""+task.getException().toString(),Toast.LENGTH_SHORT).show();
+
+                            }
                         }
-                    }
-                });
+                    });
+
+        }
+
 
     }
 }

@@ -23,22 +23,27 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Product name"/>
+        android:hint="Product name"
+        android:id="@+id/add_product_name"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Product description"/>
+        android:hint="Product description"
+        android:id="@+id/add_product_description"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Product cost"/>
+        android:hint="Product cost"
+        android:id="@+id/add_product_cost"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Product category"/>
+        android:hint="Product category"
+        android:id="@+id/add_product_category"
+        />
 
     <Button
         android:layout_width="wrap_content"
