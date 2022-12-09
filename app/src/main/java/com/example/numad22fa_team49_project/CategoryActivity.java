@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.numad22fa_team49_project.adapters.GeneralProductHomeAdapter;
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
@@ -25,7 +28,9 @@ public class CategoryActivity extends AppCompatActivity {
     ArrayList<GeneralProductHome> products;
     GeneralProductHomeAdapter generalProductHomeAdapter;
     RecyclerView categoryRecyclerView;
+    ImageView back;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +43,16 @@ public class CategoryActivity extends AppCompatActivity {
         categoryRecyclerView.setAdapter(generalProductHomeAdapter);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRef = FirebaseDatabase.getInstance().getReference("products");
+        back = findViewById(R.id.back_button_categories);
         Query query = mRef.orderByChild("category").equalTo(category);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
