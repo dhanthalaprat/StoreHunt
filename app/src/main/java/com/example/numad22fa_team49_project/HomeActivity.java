@@ -345,11 +345,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 break;
-//            case R.id.nav_logout:
-//                mAuth.signOut();
-//                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
+            case R.id.nav_logout:
+                mAuth.signOut();
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                break;
+            case R.id.nav_orders:
+                startActivity(new Intent(HomeActivity.this, ViewOrdersActivity.class));
+                break;
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
