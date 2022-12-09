@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:id="@+id/back_button"
+            android:id="@+id/back_button_od"
             android:layout_margin="15dp"
             android:padding="15dp"
             android:src="@drawable/collectibles_people"
