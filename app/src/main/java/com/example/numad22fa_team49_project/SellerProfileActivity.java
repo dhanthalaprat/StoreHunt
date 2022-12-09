@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.numad22fa_team49_project.adapters.GeneralProductHomeAdapter;
@@ -45,6 +46,8 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
     RecyclerView newOrdersRecyclerView;
     NewOrderRecyclerViewAdapter newOrderRecyclerViewAdapter;
 
+    LinearLayout newOrderLayout, productsUploaded, noProducts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,9 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
         sellerName = findViewById(R.id.seller_name);
         sellerProductsRecyclerView = findViewById(R.id.seller_added_products);
         newOrdersRecyclerView = findViewById(R.id.new_orders_recycler_view);
+        newOrderLayout = findViewById(R.id.new_orders_layout);
+        productsUploaded = findViewById(R.id.orderDetails);
+        noProducts = findViewById(R.id.no_products);
 
         mAuth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("storeHunt", MODE_PRIVATE);
@@ -78,10 +84,21 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
         newOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         newOrdersRecyclerView.setAdapter(newOrderRecyclerViewAdapter);
 
+        if(orderModels.size()==0){
+            newOrderLayout.setVisibility(View.GONE);
+        }
+        if(productArrayList.size()==0){
+            productsUploaded.setVisibility(View.GONE);
+        }
+
+        if(orderModels.size()==0 && productArrayList.size()==0){
+            noProducts.setVisibility(View.VISIBLE);
+        }
 
         if (!TextUtils.isEmpty(name)) {
             sellerName.setText("Hi " + name);
             mReference.child("name").setValue(name);
+
         } else {
             mReference.child("name").addValueEventListener(new ValueEventListener() {
                 @Override
@@ -111,6 +128,10 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
                         productArrayList.add(products);
                     }
                     Log.d("TAG_342", "onDataChange: " + productArrayList.size());
+                    if(productArrayList.size()>0){
+                        productsUploaded.setVisibility(View.VISIBLE);
+
+                    }
                     adapter.notifyDataSetChanged();
                 }
 
@@ -125,6 +146,9 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
                     for (DataSnapshot data : snapshot.getChildren()) {
                         NewOrderModel order = data.getValue(NewOrderModel.class);
                         orderModels.add(order);
+                    }
+                    if(orderModels.size()>0){
+                        newOrderLayout.setVisibility(View.VISIBLE);
                     }
                     newOrderRecyclerViewAdapter.notifyDataSetChanged();
                 }
