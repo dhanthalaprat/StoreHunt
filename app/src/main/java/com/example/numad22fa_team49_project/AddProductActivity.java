@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -45,10 +46,16 @@ public class AddProductActivity extends AppCompatActivity {
     StorageReference saveImage;
     String downloadedImage;
     String key;
-    DatabaseReference productReference;
+    DatabaseReference productReference, sellerReference;
     String imageUri;
     EditText productName, productCost, productDescription, productCategory;
     ImageView back, productImageView;
+    FirebaseAuth mAuth;
+
+    String[] PERMISSIONS = {
+      Manifest.permission.WRITE_EXTERNAL_STORAGE,
+      Manifest.permission.CAMERA
+    };
 
 
     @Override
@@ -69,10 +76,11 @@ public class AddProductActivity extends AppCompatActivity {
 
         saveImage = FirebaseStorage.getInstance().getReference().child("product");
         productReference = FirebaseDatabase.getInstance().getReference("products");
+        sellerReference = FirebaseDatabase.getInstance().getReference("seller");
+        mAuth = FirebaseAuth.getInstance();
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(AddProductActivity.this, new String[] {Manifest.permission.CAMERA}, 100);
+        if (!hasPermissions(this,PERMISSIONS)){
+            ActivityCompat.requestPermissions(AddProductActivity.this, PERMISSIONS, 100);
 
         }
 
@@ -105,10 +113,20 @@ public class AddProductActivity extends AppCompatActivity {
         });
     }
 
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private void openCamera() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(AddProductActivity.this, new String[] {Manifest.permission.CAMERA}, 100);
+        if (!hasPermissions(this,PERMISSIONS)){
+            ActivityCompat.requestPermissions(AddProductActivity.this, PERMISSIONS, 100);
 
         }else{
             Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
@@ -193,7 +211,7 @@ public class AddProductActivity extends AppCompatActivity {
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd, yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss a");
-            String key = dateFormat.format(calendar.getTime()).toString()+timeFormat.format(calendar.getTime()).toString();
+            key = dateFormat.format(calendar.getTime()).toString()+timeFormat.format(calendar.getTime()).toString();
             StorageReference newImg = saveImage.child(ImageURI.getLastPathSegment()+key+".jpg");
             final UploadTask uploadTask = newImg.putFile(ImageURI);
             Log.d("TAG_123", "onActivityResult: ");
@@ -269,7 +287,7 @@ public class AddProductActivity extends AppCompatActivity {
         }else{
             HashMap<String, Object> productMap = new HashMap<>();
             productMap.put("pid",key);
-            productMap.put("price",cost);
+            productMap.put("price","$"+cost);
             productMap.put("name",name);
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd, yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss a");
@@ -279,6 +297,7 @@ public class AddProductActivity extends AppCompatActivity {
             productMap.put("image_uri",imageUri);
             productMap.put("rating","0");
             productMap.put("description",description);
+            productMap.put("seller_id", mAuth.getUid());
 //        GeneralProductHome productHome = new GeneralProductHome("name","description","100","4","date","time",url,"category");
             productReference.child(key).updateChildren(productMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -293,6 +312,7 @@ public class AddProductActivity extends AppCompatActivity {
                             }
                         }
                     });
+            sellerReference.child(mAuth.getUid()).child("products").child(key).updateChildren(productMap);
 
         }
 
