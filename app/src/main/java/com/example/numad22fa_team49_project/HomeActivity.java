@@ -165,7 +165,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         generalProductsRecyclerView = findViewById(R.id.general_product_home_recycler_view);
         recentlyViewedProductsRecyclerView = findViewById(R.id.recently_viewed_products_recycler_view);
         newProductRecyclerView = findViewById(R.id.new_product_home_recycler_view);
-        menuButton = findViewById(R.id.menu_button);
+//        menuButton = findViewById(R.id.menu_button);
 
 
         generalProductHomes = new ArrayList<>();
@@ -212,7 +212,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(HomeActivity.this, CartActivity.class));
             }
         });
-        navigationDrawer();
+//        navigationDrawer();
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override

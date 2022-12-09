@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/background"
+
         >
 
         <include layout="@layout/appbar"/>
@@ -39,7 +39,6 @@
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
                 android:paddingTop="8dp"
-                android:background="#01f1fa"
                 android:orientation="vertical"
                 >
                 <ImageView

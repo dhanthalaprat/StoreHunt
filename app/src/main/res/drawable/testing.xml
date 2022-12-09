@@ -16,7 +16,7 @@
 
     <!--If your shape requires only one solid color-->
     <solid
-        android:color="#01f1fa" />
+        android:color="#00000000" />
 
     <size
         android:width="82dp"
