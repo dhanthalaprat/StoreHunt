@@ -21,9 +21,7 @@ public class SellerRegisterationActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     EditText signUpEmail, signUpName, signUpPassword;
     Button sellerRegistration;
-
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
