@@ -47,7 +47,7 @@ import java.util.Locale;
 public class ProfileActivity extends AppCompatActivity {
 
     Button editProfile;
-    ImageView profilePic;
+    ImageView profilePic, back;
     DatabaseReference reference;
     SharedPreferences sharedPreferences;
     StorageReference saveImage;
@@ -59,9 +59,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         profilePic = findViewById(R.id.profile_pic);
         editProfile = findViewById(R.id.edit_profile_pic);
+        back = findViewById(R.id.back_button_profile);
         sharedPreferences = getSharedPreferences("storeHunt",MODE_PRIVATE);
         reference = FirebaseDatabase.getInstance().getReference("user").child(sharedPreferences.getString("userId",""));
         saveImage = FirebaseStorage.getInstance().getReference().child("product");
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         reference.child("profilepicture").addValueEventListener(new ValueEventListener() {
             @Override

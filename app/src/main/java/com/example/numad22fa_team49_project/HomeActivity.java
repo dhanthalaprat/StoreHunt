@@ -60,7 +60,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
 
-    ImageView cartView, menuButton, profilePicture, orders, openProfile, logout;
+    ImageView cartView, menuButton, profilePicture, orders;
+//    NaopenProfile, logout;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -95,8 +96,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         collectibles = findViewById(R.id.collectibles);
         profilePicture = findViewById(R.id.profile_picture);
         orders = findViewById(R.id.previous_orders);
-        openProfile = findViewById(R.id.open_profile);
-        logout = findViewById(R.id.logout);
+//        openProfile = findViewById(R.id.nav_profile);
+//        logout = findViewById(R.id.nav_logout);
 
         String userName = getIntent().getStringExtra("userName");
         Boolean fromSignUp = getIntent().getBooleanExtra("fromSignUp",false);
@@ -259,22 +260,22 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        openProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
-            }
-        });
+//        openProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+//            }
+//        });
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mAuth.signOut();
+//                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//            }
+//        });
 
 
 //        menuButton.setOnClickListener(new View.OnClickListener() {
@@ -340,6 +341,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_profile:
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+                break;
+//            case R.id.nav_logout:
+//                mAuth.signOut();
+//                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }
