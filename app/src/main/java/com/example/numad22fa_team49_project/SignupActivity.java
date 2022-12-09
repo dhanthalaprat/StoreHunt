@@ -64,7 +64,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(SignupActivity.this,"User signed up successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignupActivity.this,HomeActivity.class));
+                        Intent intent = new Intent(SignupActivity.this,HomeActivity.class);
+                        intent.putExtra("userName",name);
+                        intent.putExtra("fromSignUp",true);
+                        startActivity(intent);
                     }else{
                         Toast.makeText(SignupActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }

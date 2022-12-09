@@ -3,86 +3,128 @@ package com.example.numad22fa_team49_project;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.numad22fa_team49_project.models.GeneralProductHome;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.Date;
+import java.util.Locale;
 
-public class AddProductActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
-    Button selectGallery, uploadProduct;
+    Button editProfile;
+    ImageView profilePic;
+    DatabaseReference reference;
+    SharedPreferences sharedPreferences;
     StorageReference saveImage;
-    String downloadedImage;
-    String key;
-    DatabaseReference productReference;
-    String imageUri;
-    EditText productName, productCost, productDescription;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_product);
+        setContentView(R.layout.activity_profile);
 
-        selectGallery = findViewById(R.id.select_image_gallery);
-        uploadProduct = findViewById(R.id.upload_product);
-
+        profilePic = findViewById(R.id.profile_pic);
+        editProfile = findViewById(R.id.edit_profile_pic);
+        sharedPreferences = getSharedPreferences("storeHunt",MODE_PRIVATE);
+        reference = FirebaseDatabase.getInstance().getReference("user").child(sharedPreferences.getString("userId",""));
         saveImage = FirebaseStorage.getInstance().getReference().child("product");
-        productReference = FirebaseDatabase.getInstance().getReference("products");
 
-        selectGallery.setOnClickListener(new View.OnClickListener() {
+        reference.child("profilepicture").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                selectImageFromGallery();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Picasso.get().load(snapshot.getValue(String.class)).into(profilePic);
+                }else{
+                    profilePic.setImageDrawable(getDrawable(R.drawable.ic_baseline_person_24));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        uploadProduct.setOnClickListener(new View.OnClickListener() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(ProfileActivity.this, new String[] {Manifest.permission.CAMERA}, 100);
+
+        }
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                openCamera();
             }
         });
     }
 
-    private void selectImageFromGallery() {
-        Log.d("TAG_123", "openGallery: ");
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"),201);
+    private void openCamera() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(ProfileActivity.this, new String[] {Manifest.permission.CAMERA}, 100);
+
+        }else{
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            startActivityForResult(intent, 200);
+        }
+
+
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==201 && resultCode==RESULT_OK && data!=null){
-            Uri ImageURI = data.getData();
+        if(requestCode == 200&& resultCode==RESULT_OK && data!=null){
+            Bitmap image = (Bitmap) data.getExtras().get("data");
+//            ImageView imageview = (ImageView) findViewById(R.id.ImageView01); //sets imageview as the bitmap
+            profilePic.setImageBitmap(image);
+            Uri ImageURI = getImageUri(ProfileActivity.this,image);
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd, yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss a");
-            key = dateFormat.format(calendar.getTime()).toString()+timeFormat.format(calendar.getTime()).toString();
+            String key = dateFormat.format(calendar.getTime()).toString()+timeFormat.format(calendar.getTime()).toString();
             StorageReference newImg = saveImage.child(ImageURI.getLastPathSegment()+key+".jpg");
             final UploadTask uploadTask = newImg.putFile(ImageURI);
             Log.d("TAG_123", "onActivityResult: ");
@@ -91,12 +133,12 @@ public class AddProductActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.d("TAG_123", "onFailure: dfghj");
-                    Toast.makeText(AddProductActivity.this,"sdfghjk",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddProductActivity.this,"sdfghjk",Toast.LENGTH_SHORT).show();
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(AddProductActivity.this,"Successful",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddProductActivity.this,"Successful",Toast.LENGTH_SHORT).show();
 
                     Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
@@ -119,10 +161,12 @@ public class AddProductActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
 //                                        saveProductToDatabase(uri.toString());
-                                        imageUri = uri.toString();
+//                                        imageUri = uri.toString();
+                                        reference.child("profilepicture").setValue(uri.toString());
+
                                     }
                                 });
-                                Toast.makeText(AddProductActivity.this,"retrived image added to database",Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(AddProductActivity.this,"retrived image added to database",Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -131,34 +175,6 @@ public class AddProductActivity extends AppCompatActivity {
             });
 
         }
-    }
-
-    private void saveProductToDatabase() {
-
-        HashMap<String, Object> productMap = new HashMap<>();
-        productMap.put("pid",key);
-        productMap.put("price","price");
-        productMap.put("name","name");
-        productMap.put("date","date");
-        productMap.put("time","time");
-        productMap.put("category","category");
-        productMap.put("image_uri",imageUri);
-        productMap.put("rating","rating");
-        productMap.put("description","description");
-//        GeneralProductHome productHome = new GeneralProductHome("name","description","100","4","date","time",url,"category");
-        productReference.child(key).updateChildren(productMap)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(AddProductActivity.this,"Added sucessefully",Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(AddProductActivity.this,""+task.getException().toString(),Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
 
     }
 }

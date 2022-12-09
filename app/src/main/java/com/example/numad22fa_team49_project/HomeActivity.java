@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,8 +36,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,10 +60,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
 
-    ImageView cartView, menuButton;
+    ImageView cartView, menuButton, profilePicture, orders, openProfile, logout;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+
+    LinearLayout toys, crafts, arts, homeDecor, gardening, collectibles;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,81 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         editSharedPreferences.putString("userId", mAuth.getUid());
         editSharedPreferences.apply();
+
+        toys = findViewById(R.id.toys);
+        crafts = findViewById(R.id.crafts);
+        arts = findViewById(R.id.arts);
+        homeDecor = findViewById(R.id.home_decor);
+        gardening = findViewById(R.id.gardening);
+        collectibles = findViewById(R.id.collectibles);
+        profilePicture = findViewById(R.id.profile_picture);
+        orders = findViewById(R.id.previous_orders);
+        openProfile = findViewById(R.id.open_profile);
+        logout = findViewById(R.id.logout);
+
+        String userName = getIntent().getStringExtra("userName");
+        Boolean fromSignUp = getIntent().getBooleanExtra("fromSignUp",false);
+
+        toys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                intent.putExtra("category","toys");
+                startActivity(intent);
+            }
+        });
+
+        crafts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                intent.putExtra("category","crafts");
+                startActivity(intent);
+            }
+        });
+
+        arts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                intent.putExtra("category","arts");
+                startActivity(intent);
+            }
+        });
+
+        homeDecor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                intent.putExtra("category","homedecor");
+                startActivity(intent);
+            }
+        });
+
+        gardening.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                intent.putExtra("category","gardening");
+                startActivity(intent);
+            }
+        });
+
+        collectibles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                intent.putExtra("category","collectibles");
+                startActivity(intent);
+            }
+        });
+
+        orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ViewOrdersActivity.class));
+            }
+        });
 
         generalProductsRecyclerView = findViewById(R.id.general_product_home_recycler_view);
         recentlyViewedProductsRecyclerView = findViewById(R.id.recently_viewed_products_recycler_view);
@@ -158,6 +239,43 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
+        if(fromSignUp){
+            recentRef.child("name").setValue(userName);
+        }
+        recentRef.child("profilepicture").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Picasso.get().load(snapshot.getValue(String.class)).into(profilePicture);
+                }else{
+                    profilePicture.setImageDrawable(getDrawable(R.drawable.ic_baseline_person_24));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        openProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
 
 //        menuButton.setOnClickListener(new View.OnClickListener() {
 //            @Override

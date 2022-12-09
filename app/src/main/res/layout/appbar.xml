@@ -21,13 +21,16 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 app:cardCornerRadius="40dp"
+
                 >
 
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:src="@drawable/collectibles_dolls"
-                    android:scaleType="centerCrop"/>
+                    android:id="@+id/profile_picture"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -51,13 +54,13 @@
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:text="Store Hunt"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/view_cart_button"
-                    android:src="@drawable/ic_baseline_shopping_cart_24"
-                    android:paddingEnd="6dp"/>
+<!--                <ImageView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:id="@+id/view_cart_button"-->
+<!--                    android:src="@drawable/ic_baseline_shopping_cart_24"-->
+<!--                    android:paddingEnd="6dp"/>-->
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
