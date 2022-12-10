@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="1dp"
@@ -23,6 +23,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:id="@+id/back_button_add_product"
                 android:paddingLeft="9dp"
                 android:src="@drawable/ic_baseline_arrow_back_ios_24"
@@ -30,13 +33,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:textSize="25sp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="Add Product"/>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:layout_width="match_parent"
