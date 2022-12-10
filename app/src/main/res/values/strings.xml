@@ -10,4 +10,5 @@
     <string name="login_as_seller">Login as seller</string>
     <string name="login_cta">Login</string>
     <string name="signup_from_login">New User?  SignUp</string>
+    <string name="seller_signup_from_login">New Seller?  SignUp</string>
 </resources>

@@ -27,7 +27,7 @@
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="32dp"
                 android:layout_marginTop="100dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -36,7 +36,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Full name"
+                android:hint="@string/name_hint"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -53,7 +53,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Email"
+                android:hint="@string/email_hint"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -70,7 +70,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Password"
+                android:hint="@string/password_hint"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -87,7 +87,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Confirm Password"
+                android:hint="@string/re_password_hint"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_gravity="center"
                 android:background="#00000000"
-                android:text="Create Account" />
+                android:text="@string/signup_cta" />
 
             <!--            <TextView-->
             <!--                android:id="@+id/from_register_login"-->
