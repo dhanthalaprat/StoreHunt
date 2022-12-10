@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.numad22fa_team49_project.adapters.GeneralProductHomeAdapter;
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
@@ -29,6 +30,7 @@ public class CategoryActivity extends AppCompatActivity {
     GeneralProductHomeAdapter generalProductHomeAdapter;
     RecyclerView categoryRecyclerView;
     ImageView back;
+    TextView categoryTextView;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,6 +47,27 @@ public class CategoryActivity extends AppCompatActivity {
         mRef = FirebaseDatabase.getInstance().getReference("products");
         back = findViewById(R.id.back_button_categories);
         Query query = mRef.orderByChild("category").equalTo(category);
+        categoryTextView = findViewById(R.id.category_name_text);
+        switch (category){
+            case "toys":
+                categoryTextView.setText("Toys");
+                break;
+            case "crafts":
+                categoryTextView.setText("Crafts");
+                break;
+            case "homedecor":
+                categoryTextView.setText("Home Decor");
+                break;
+            case "arts":
+                categoryTextView.setText("Arts");
+                break;
+            case "collectibles":
+                categoryTextView.setText("Collectibles");
+                break;
+            case "gardening":
+                categoryTextView.setText("Gardening");
+                break;
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

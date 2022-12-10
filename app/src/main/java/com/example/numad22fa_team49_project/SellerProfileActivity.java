@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
     NewOrderRecyclerViewAdapter newOrderRecyclerViewAdapter;
 
     LinearLayout newOrderLayout, productsUploaded, noProducts;
+    ImageView sellerLogout;
 
 
     @Override
@@ -63,6 +65,7 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
         newOrderLayout = findViewById(R.id.new_orders_layout);
         productsUploaded = findViewById(R.id.orderDetails);
         noProducts = findViewById(R.id.no_products);
+        sellerLogout = findViewById(R.id.seller_logout);
 
         mAuth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("storeHunt", MODE_PRIVATE);
@@ -80,7 +83,8 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
         sellerProductsRecyclerView.setAdapter(adapter);
 
         orderModels = new ArrayList<>();
-        newOrderRecyclerViewAdapter = new NewOrderRecyclerViewAdapter(this, orderModels);
+
+        newOrderRecyclerViewAdapter = new NewOrderRecyclerViewAdapter(this, orderModels, true);
         newOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         newOrdersRecyclerView.setAdapter(newOrderRecyclerViewAdapter);
 
@@ -160,6 +164,26 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
                 }
             });
         }
+        sellerLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                SharedPreferences sharedPreferences = getSharedPreferences("storeHunt", MODE_PRIVATE);
+                SharedPreferences.Editor editSharedPreferences = sharedPreferences.edit();
+                editSharedPreferences.putBoolean("asSeller", false);
+                editSharedPreferences.apply();
+                Intent intent = new Intent(SellerProfileActivity.this, SellerLoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        viewNewOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SellerProfileActivity.this, ViewNewOrdersSellerViewActivity.class));
+            }
+        });
     }
 
     @Override

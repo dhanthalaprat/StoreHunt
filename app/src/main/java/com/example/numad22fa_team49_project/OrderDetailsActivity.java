@@ -9,10 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.numad22fa_team49_project.models.NewOrderModel;
+import com.squareup.picasso.Picasso;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 
-    ImageView back;
+    ImageView back, productImage;
     NewOrderModel order;
     TextView name, price, username, street, city, state, country, zipcode;
 
@@ -31,10 +32,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
         state = findViewById(R.id.orderStateField);
         country = findViewById(R.id.orderCountryField);
         zipcode = findViewById(R.id.orderZipcodeField);
+        productImage = findViewById(R.id.order_product_image);
 
 
         order = new NewOrderModel();
-        order = getIntent().getParcelableExtra("ordered");
+        order = (NewOrderModel) getIntent().getSerializableExtra("ordered");
 
         name.setText(order.getProductName());
         price.setText(order.getProductPrice());
@@ -44,6 +46,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
         state.setText(order.getState());
         country.setText(order.getCountry());
         zipcode.setText(order.getZipcode());
+
+        Picasso.get().load(order.getImage_uri()).into(productImage);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

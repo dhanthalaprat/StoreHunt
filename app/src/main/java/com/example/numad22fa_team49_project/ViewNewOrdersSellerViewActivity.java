@@ -34,7 +34,7 @@ public class ViewNewOrdersSellerViewActivity extends AppCompatActivity {
 
         orders = new ArrayList<>();
         allNewOrders = findViewById(R.id.full_orders_recycler_view);
-        adapter = new NewOrderRecyclerViewAdapter(this, orders);
+        adapter = new NewOrderRecyclerViewAdapter(this, orders, false);
         allNewOrders.setLayoutManager(new LinearLayoutManager(this));
         allNewOrders.setAdapter(adapter);
 
