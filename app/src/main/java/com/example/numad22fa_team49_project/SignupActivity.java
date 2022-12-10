@@ -3,6 +3,7 @@ package com.example.numad22fa_team49_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -43,6 +44,13 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void createAccountInFirebase() {
+
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         // Get the values from the Input fields and convert them to String type
         String name = signUpName.getText().toString();
         String email = signUpEmail.getText().toString();
@@ -51,24 +59,29 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         // Form Validation
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this,"Please enter a valid name",Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             signUpName.requestFocus();
         } else if (TextUtils.isEmpty(email)){
             Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             signUpEmail.requestFocus();
         } else if (TextUtils.isEmpty(password)){
             Toast.makeText(this,"Password is required to create an account",Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             signUpPassword.requestFocus();
         } else{
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        progress.dismiss();
                         Toast.makeText(SignupActivity.this,"User signed up successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignupActivity.this,HomeActivity.class);
                         intent.putExtra("userName",name);
                         intent.putExtra("fromSignUp",true);
                         startActivity(intent);
                     }else{
+                        progress.dismiss();
                         Toast.makeText(SignupActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }

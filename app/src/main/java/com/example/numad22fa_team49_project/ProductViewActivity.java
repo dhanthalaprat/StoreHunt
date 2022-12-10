@@ -1,8 +1,12 @@
 package com.example.numad22fa_team49_project;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +17,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class ProductViewActivity extends AppCompatActivity {
@@ -72,7 +80,66 @@ public class ProductViewActivity extends AppCompatActivity {
     }
 
     private void addToCartAndDB() {
+
+        Query query = mReference.child(sharedPreferences.getString("userId","")).child("cart").orderByChild("name").equalTo(product.getName());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+//                    progress.dismiss();
+                    new AlertDialog.Builder(ProductViewActivity.this).setTitle("Already in cart")
+                            .setMessage("Product is already in your cart.")
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            })
+                            .show();
+                }else{
+                    pushToDB();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void pushToDB(){
         Log.d("TAG_56", "addToCartAndDB: "+sharedPreferences.getString("userId",""));
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Adding product to cart");
+        progress.setMessage("Please wait while we add the product to your cart");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
         mReference.child(sharedPreferences.getString("userId","")).child("cart").child(product.getName()).setValue(product);
+        Query query = mReference.child(sharedPreferences.getString("userId","")).child("cart").orderByChild("name").equalTo(product.getName());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    progress.dismiss();
+
+                    new AlertDialog.Builder(ProductViewActivity.this).setTitle("Product added")
+                            .setMessage("Product is successfully added to your cart.")
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            })
+                            .show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

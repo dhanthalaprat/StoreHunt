@@ -18,6 +18,7 @@ import com.example.numad22fa_team49_project.R;
 import com.example.numad22fa_team49_project.models.NewOrderModel;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class NewOrderRecyclerViewAdapter extends RecyclerView.Adapter<NewOrderRecyclerViewAdapter.NewOrderViewHolder>{
@@ -70,7 +71,9 @@ public class NewOrderRecyclerViewAdapter extends RecyclerView.Adapter<NewOrderRe
             orderItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    context.startActivity(new Intent(context, OrderDetailsActivity.class));
+                    Intent intent = new Intent(context,OrderDetailsActivity.class);
+                    intent.putExtra("ordered", orders.get(getAdapterPosition()));
+                    context.startActivity(intent);
                 }
             });
         }

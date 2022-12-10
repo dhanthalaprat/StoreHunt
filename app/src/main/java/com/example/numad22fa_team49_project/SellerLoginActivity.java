@@ -3,6 +3,7 @@ package com.example.numad22fa_team49_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,13 +59,21 @@ public class SellerLoginActivity extends AppCompatActivity {
     }
 
     private void login() {
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         String email = loginEmail.getText().toString();
         String password = loginPassword.getText().toString();
 
         if (TextUtils.isEmpty(email)){
+            progress.dismiss();
             Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
             loginEmail.requestFocus();
         } else if (TextUtils.isEmpty(password)){
+            progress.dismiss();
             Toast.makeText(this,"Incorrect password",Toast.LENGTH_SHORT).show();
             loginPassword.requestFocus();
         } else{
@@ -72,6 +81,7 @@ public class SellerLoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        progress.dismiss();
                         Toast.makeText(SellerLoginActivity.this,"User logged in successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SellerLoginActivity.this,SellerProfileActivity.class));
                         SharedPreferences.Editor editSharedPreferences = sharedPreferences.edit();
@@ -79,6 +89,7 @@ public class SellerLoginActivity extends AppCompatActivity {
                         editSharedPreferences.apply();
                         finish();
                     }else{
+                        progress.dismiss();
                         Toast.makeText(SellerLoginActivity.this,"Login error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }

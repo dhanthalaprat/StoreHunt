@@ -3,6 +3,7 @@ package com.example.numad22fa_team49_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,18 +59,27 @@ public class SellerRegisterationActivity extends AppCompatActivity {
     }
 
     public void registerUser(){
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         String name = signUpName.getText().toString();
         String email = signUpEmail.getText().toString();
         String password = signUpPassword.getText().toString();
 
         // Form Validation
         if (TextUtils.isEmpty(name)){
+            progress.dismiss();
             Toast.makeText(this,"Please enter a valid name",Toast.LENGTH_SHORT).show();
             signUpName.requestFocus();
         } else if (TextUtils.isEmpty(email)){
+            progress.dismiss();
             Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
             signUpEmail.requestFocus();
         } else if (TextUtils.isEmpty(password)){
+            progress.dismiss();
             Toast.makeText(this,"Password is required to create an account",Toast.LENGTH_SHORT).show();
             signUpPassword.requestFocus();
         } else{
@@ -77,6 +87,7 @@ public class SellerRegisterationActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        progress.dismiss();
                         Toast.makeText(SellerRegisterationActivity.this,"User signed up successfully", Toast.LENGTH_SHORT).show();
 //                        mReference.push().setValue(mAuth.getUid());
                         Intent intent = new Intent(SellerRegisterationActivity.this,SellerProfileActivity.class);
@@ -87,6 +98,7 @@ public class SellerRegisterationActivity extends AppCompatActivity {
                         editSharedPreferences.apply();
                         startActivity(intent);
                     }else{
+                        progress.dismiss();
                         Toast.makeText(SellerRegisterationActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }

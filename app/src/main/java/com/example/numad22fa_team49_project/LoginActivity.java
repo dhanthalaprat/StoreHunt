@@ -3,6 +3,7 @@ package com.example.numad22fa_team49_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -64,24 +65,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loginUser() {
+
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         String email = loginEmail.getText().toString();
         String password = loginPassword.getText().toString();
 
        if (TextUtils.isEmpty(email)) {
             Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
+           progress.dismiss();
             loginEmail.requestFocus();
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this,"Incorrect password",Toast.LENGTH_SHORT).show();
+           progress.dismiss();
             loginPassword.requestFocus();
         } else {
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
+                        progress.dismiss();
                         Toast.makeText(LoginActivity.this,"User logged in successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                         finish();
                     } else{
+                        progress.dismiss();
                         Toast.makeText(LoginActivity.this,"Login error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }

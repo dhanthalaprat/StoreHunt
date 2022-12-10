@@ -1,6 +1,8 @@
 package com.example.numad22fa_team49_project.models;
 
-public class NewOrderModel {
+import java.io.Serializable;
+
+public class NewOrderModel implements Serializable {
     String productName, productPrice, userName, userId, street, city, state, country, zipcode, image_uri;
 
     public NewOrderModel() {
