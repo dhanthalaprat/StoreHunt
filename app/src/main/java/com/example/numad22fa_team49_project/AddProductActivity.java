@@ -361,6 +361,7 @@ public class AddProductActivity extends AppCompatActivity {
                         }
                     });
             sellerReference.child(mAuth.getUid()).child("products").child(key).updateChildren(productMap);
+            onBackPressed();
 
         }
 
