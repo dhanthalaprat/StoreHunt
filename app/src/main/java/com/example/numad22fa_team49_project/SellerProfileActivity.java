@@ -130,7 +130,7 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
                     Log.d("TAG_342", "onDataChange: " + productArrayList.size());
                     if(productArrayList.size()>0){
                         productsUploaded.setVisibility(View.VISIBLE);
-
+                        noProducts.setVisibility(View.GONE);
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -149,6 +149,7 @@ public class SellerProfileActivity extends AppCompatActivity implements View.OnC
                     }
                     if(orderModels.size()>0){
                         newOrderLayout.setVisibility(View.VISIBLE);
+                        noProducts.setVisibility(View.GONE);
                     }
                     newOrderRecyclerViewAdapter.notifyDataSetChanged();
                 }
