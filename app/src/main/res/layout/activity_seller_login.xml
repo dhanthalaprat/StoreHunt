@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SellerLoginActivity">
 
     <ImageView
@@ -48,14 +49,17 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
+
                 android:hint="@string/password_hint"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:passwordToggleEnabled="true"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/seller_login_password"
-                    android:inputType="text"
+
+                    android:inputType="textPassword"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
