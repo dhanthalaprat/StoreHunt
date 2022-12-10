@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">NUMAD22FA_Team49_Project</string>
+    <string name="app_title">Store Hunt</string>
+    <string name="name_hint">Fullname</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="re_password_hint">Confirm Password</string>
+    <string name="signup_cta">Create Account</string>
+    <string name="login_from_signup">Existing User? Login</string>
+    <string name="login_as_seller">Login as seller</string>
+    <string name="login_cta">Login</string>
+    <string name="signup_from_login">New User?  SignUp</string>
 </resources>

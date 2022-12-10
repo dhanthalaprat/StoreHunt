@@ -49,26 +49,26 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         String password = signUpPassword.getText().toString();
 
         // Form Validation
-        if (TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)) {
             Toast.makeText(this,"Please enter a valid name",Toast.LENGTH_SHORT).show();
             signUpName.requestFocus();
-        } else if (TextUtils.isEmpty(email)){
+        } else if (TextUtils.isEmpty(email)) {
             Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
             signUpEmail.requestFocus();
-        } else if (TextUtils.isEmpty(password)){
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this,"Password is required to create an account",Toast.LENGTH_SHORT).show();
             signUpPassword.requestFocus();
-        } else{
+        } else {
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if(task.isSuccessful()) {
                         Toast.makeText(SignupActivity.this,"User signed up successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignupActivity.this,HomeActivity.class);
                         intent.putExtra("userName",name);
                         intent.putExtra("fromSignUp",true);
                         startActivity(intent);
-                    }else{
+                    } else {
                         Toast.makeText(SignupActivity.this,"Register error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
