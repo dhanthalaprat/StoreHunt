@@ -1,93 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".AddProductActivity"
-    android:orientation="vertical"
-    android:padding="12dp">
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:layout_marginTop="1dp"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:layout_marginTop="1dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/back_button_add_product"
+                android:paddingLeft="9dp"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Add Product"/>
+
+        </LinearLayout>
+
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:id="@+id/add_product_image"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click Image"
+                android:id="@+id/click_image"
+                android:layout_marginEnd="10dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose image"
+                android:id="@+id/select_image_gallery"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+
+
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/back_button_add_product"
-            android:paddingLeft="9dp"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24"
-            android:layout_gravity="center"/>
-        <TextView
-            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:hint="Product name"
+            android:id="@+id/add_product_name"/>
+
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Add Product"/>
+            android:hint="Product description"
+            android:id="@+id/add_product_description"/>
 
-    </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Product cost"
+            android:id="@+id/add_product_cost"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        android:id="@+id/add_product_image"
-        />
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Product category"-->
+<!--            android:id="@+id/add_product_category"-->
+<!--            />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/category_selection"
+            android:prompt="@string/select_category"
+            />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Click Image"
-            android:id="@+id/click_image"
-            android:layout_marginEnd="10dp"/>
+            android:text="Upload Product"
+            android:id="@+id/upload_product"
+            />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choose image"
-            android:id="@+id/select_image_gallery"
-            android:layout_marginStart="10dp"/>
     </LinearLayout>
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Product name"
-        android:id="@+id/add_product_name"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Product description"
-        android:id="@+id/add_product_description"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Product cost"
-        android:id="@+id/add_product_cost"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Product category"
-        android:id="@+id/add_product_category"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upload Product"
-        android:id="@+id/upload_product"
-        />
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

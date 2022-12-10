@@ -17,4 +17,5 @@
     <string name="signup_from_login">New User?  SignUp</string>
     <string name="seller_signup_from_login">New Seller?  SignUp</string>
     <string name="checkout_cta">Checkout</string>
+    <string name="select_category">Select category</string>
 </resources>

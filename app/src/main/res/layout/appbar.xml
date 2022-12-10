@@ -62,8 +62,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-
                     >
 
                     <!--                <TextView-->
@@ -73,13 +71,7 @@
                     <!--                    android:layout_weight="1"-->
                     <!--                    android:textAlignment="center"-->
                     <!--                    android:text="Store Hunt"/>-->
-                    <!--                <ImageView-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_gravity="center"-->
-                    <!--                    android:id="@+id/view_cart_button"-->
-                    <!--                    android:src="@drawable/ic_baseline_shopping_cart_24"-->
-                    <!--                    android:paddingEnd="6dp"/>-->
+
                     <!--                <ImageView-->
                     <!--                    android:layout_width="wrap_content"-->
                     <!--                    android:layout_height="wrap_content"-->
@@ -91,6 +83,17 @@
 
             </LinearLayout>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/view_cart_button"
+            android:src="@drawable/ic_baseline_shopping_cart_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingEnd="16dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
