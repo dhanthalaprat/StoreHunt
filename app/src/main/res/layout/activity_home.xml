@@ -374,6 +374,7 @@
                         android:layout_height="wrap_content"
                         android:text="Recently viewed"
                         android:layout_marginStart="5dp"
+                        android:textColor="@color/black"
                         android:id="@+id/recently_viewed_text"
                         />
                     <androidx.recyclerview.widget.RecyclerView
