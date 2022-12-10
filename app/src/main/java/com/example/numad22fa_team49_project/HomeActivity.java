@@ -28,6 +28,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.numad22fa_team49_project.adapters.GeneralProductHomeAdapter;
+import com.example.numad22fa_team49_project.adapters.RecentProductsAdapter;
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,7 +46,8 @@ import java.util.Locale;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView generalProductsRecyclerView;
-    GeneralProductHomeAdapter generalProductHomeAdapter, recentProductsAdapter;
+    GeneralProductHomeAdapter generalProductHomeAdapter;
+    RecentProductsAdapter recentProductsAdapter;
 
     static final float END_SCALE=0.7f;
     LinearLayout contentView;
@@ -194,8 +196,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         recentProducts = new ArrayList<>();
-        recentProductsAdapter = new GeneralProductHomeAdapter(this, recentProducts);
+        recentProductsAdapter = new RecentProductsAdapter(this, recentProducts);
         recentlyViewedProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        SnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recentlyViewedProductsRecyclerView);
         recentlyViewedProductsRecyclerView.setAdapter(recentProductsAdapter);
 
 //        newProductRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));

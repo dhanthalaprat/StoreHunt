@@ -17,9 +17,12 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
@@ -44,18 +47,23 @@ public class AddProductActivity extends AppCompatActivity {
 
     Button selectGallery, uploadProduct, clickImage;
     StorageReference saveImage;
-    String downloadedImage;
+    String downloadedImage, category="";
     String key;
     DatabaseReference productReference, sellerReference;
     String imageUri;
     EditText productName, productCost, productDescription, productCategory;
     ImageView back, productImageView;
     FirebaseAuth mAuth;
+    Spinner categorySelection;
 
     String[] PERMISSIONS = {
       Manifest.permission.WRITE_EXTERNAL_STORAGE,
       Manifest.permission.CAMERA
     };
+
+    String[] courses = { "Select category", "Home Decor", "Arts",
+            "Crafts", "Toys",
+            "Gardening", "Collectibles" };
 
 
     @Override
@@ -72,12 +80,52 @@ public class AddProductActivity extends AppCompatActivity {
         productName = findViewById(R.id.add_product_name);
         productCost = findViewById(R.id.add_product_cost);
         productDescription = findViewById(R.id.add_product_description);
-        productCategory  = findViewById(R.id.add_product_category);
+//        productCategory  = findViewById(R.id.add_product_category);
 
         saveImage = FirebaseStorage.getInstance().getReference().child("product");
         productReference = FirebaseDatabase.getInstance().getReference("products");
         sellerReference = FirebaseDatabase.getInstance().getReference("seller");
         mAuth = FirebaseAuth.getInstance();
+
+        categorySelection = findViewById(R.id.category_selection);
+        ArrayAdapter adapter = new ArrayAdapter(this,R.layout.search_text_list_item,courses);
+        adapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
+        categorySelection.setAdapter(adapter);
+
+        categorySelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!adapterView.getItemAtPosition(i).equals("Select category")){
+//                    Toast.makeText(AddProductActivity.this,"asdfgh"+courses[i],Toast.LENGTH_SHORT).show();
+                    switch (adapterView.getItemAtPosition(i).toString()){
+                        case "Home Decor":
+                            category = "homedecor";
+                            break;
+                        case "Arts":
+                            category = "arts";
+                            break;
+                        case "Crafts":
+                            category = "crafts";
+                            break;
+                        case "Toys":
+                            category = "toys";
+                            break;
+                        case "Gardening":
+                            category = "gardening";
+                            break;
+                        case "Collectibles":
+                            category = "collectibles";
+                            break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         if (!hasPermissions(this,PERMISSIONS)){
             ActivityCompat.requestPermissions(AddProductActivity.this, PERMISSIONS, 100);
@@ -266,10 +314,10 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void saveProductToDatabase() {
 
-        String name, cost, category, description;
+        String name, cost, description;
         name = productName.getText().toString();
         cost = productCost.getText().toString();
-        category = productCategory.getText().toString();
+//        category = productCategory.getText().toString();
         description = productDescription.getText().toString();
 
         if(TextUtils.isEmpty(name)){
@@ -280,7 +328,7 @@ public class AddProductActivity extends AppCompatActivity {
             productCost.requestFocus();
         }else if(TextUtils.isEmpty(category)){
             Toast.makeText(this,"Please enter a valid category",Toast.LENGTH_SHORT).show();
-            productCategory.requestFocus();
+            categorySelection.requestFocus();
         }else if(TextUtils.isEmpty(description)){
             Toast.makeText(this,"Please enter a valid description",Toast.LENGTH_SHORT).show();
             productDescription.requestFocus();

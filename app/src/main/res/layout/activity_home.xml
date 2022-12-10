@@ -379,6 +379,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        tools:listitem="@layout/recent_product_item"
                         android:id="@+id/recently_viewed_products_recycler_view"/>
                     <TextView
                         android:layout_width="wrap_content"
