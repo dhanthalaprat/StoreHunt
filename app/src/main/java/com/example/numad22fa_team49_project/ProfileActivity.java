@@ -51,6 +51,11 @@ public class ProfileActivity extends AppCompatActivity {
     DatabaseReference reference;
     SharedPreferences sharedPreferences;
     StorageReference saveImage;
+    String[] PERMISSIONS = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED){
+        if (!hasPermissions(this,PERMISSIONS)){
             ActivityCompat.requestPermissions(ProfileActivity.this, new String[] {Manifest.permission.CAMERA}, 100);
 
         }
@@ -101,9 +105,19 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private void openCamera() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED){
+        if (!hasPermissions(this,PERMISSIONS)){
             ActivityCompat.requestPermissions(ProfileActivity.this, new String[] {Manifest.permission.CAMERA}, 100);
 
         }else{

@@ -7,14 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".AddProductActivity"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="7dp"
-        android:layout_marginTop="5dp"
-        android:background="#00000000"
+        android:padding="1dp"
+        android:layout_marginTop="1dp"
         >
         <ImageView
             android:layout_width="wrap_content"
@@ -35,14 +34,29 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:id="@+id/add_product_image"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose image"
-        android:id="@+id/select_image_gallery"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click Image"
+            android:id="@+id/click_image"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose image"
+            android:id="@+id/select_image_gallery"
+            android:layout_marginStart="10dp"/>
+    </LinearLayout>
+
 
     <EditText
         android:layout_width="match_parent"

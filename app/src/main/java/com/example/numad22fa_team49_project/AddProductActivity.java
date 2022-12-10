@@ -3,10 +3,17 @@ package com.example.numad22fa_team49_project;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,26 +28,34 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class AddProductActivity extends AppCompatActivity {
 
-    Button selectGallery, uploadProduct;
+    Button selectGallery, uploadProduct, clickImage;
     StorageReference saveImage;
     String downloadedImage;
     String key;
-    DatabaseReference productReference;
+    DatabaseReference productReference, sellerReference;
     String imageUri;
     EditText productName, productCost, productDescription, productCategory;
-    ImageView back;
+    ImageView back, productImageView;
+    FirebaseAuth mAuth;
+
+    String[] PERMISSIONS = {
+      Manifest.permission.WRITE_EXTERNAL_STORAGE,
+      Manifest.permission.CAMERA
+    };
 
 
     @Override
@@ -51,6 +66,8 @@ public class AddProductActivity extends AppCompatActivity {
         selectGallery = findViewById(R.id.select_image_gallery);
         uploadProduct = findViewById(R.id.upload_product);
         back = findViewById(R.id.back_button_add_product);
+        clickImage = findViewById(R.id.click_image);
+        productImageView = findViewById(R.id.add_product_image);
 
         productName = findViewById(R.id.add_product_name);
         productCost = findViewById(R.id.add_product_cost);
@@ -59,6 +76,13 @@ public class AddProductActivity extends AppCompatActivity {
 
         saveImage = FirebaseStorage.getInstance().getReference().child("product");
         productReference = FirebaseDatabase.getInstance().getReference("products");
+        sellerReference = FirebaseDatabase.getInstance().getReference("seller");
+        mAuth = FirebaseAuth.getInstance();
+
+        if (!hasPermissions(this,PERMISSIONS)){
+            ActivityCompat.requestPermissions(AddProductActivity.this, PERMISSIONS, 100);
+
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +104,34 @@ public class AddProductActivity extends AppCompatActivity {
                 saveProductToDatabase();
             }
         });
+
+        clickImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCamera();
+            }
+        });
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void openCamera() {
+        if (!hasPermissions(this,PERMISSIONS)){
+            ActivityCompat.requestPermissions(AddProductActivity.this, PERMISSIONS, 100);
+
+        }else{
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            startActivityForResult(intent, 200);
+        }
     }
 
     private void selectImageFromGallery() {
@@ -89,7 +141,12 @@ public class AddProductActivity extends AppCompatActivity {
         intent.setType("image/*");
         startActivityForResult(Intent.createChooser(intent, "Select Picture"),201);
     }
-
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -146,6 +203,64 @@ public class AddProductActivity extends AppCompatActivity {
                 }
             });
 
+        }else if(requestCode == 200&& resultCode==RESULT_OK && data!=null){
+            Bitmap image = (Bitmap) data.getExtras().get("data");
+//            ImageView imageview = (ImageView) findViewById(R.id.ImageView01); //sets imageview as the bitmap
+            productImageView.setImageBitmap(image);
+            Uri ImageURI = getImageUri(AddProductActivity.this,image);
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd, yyyy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss a");
+            key = dateFormat.format(calendar.getTime()).toString()+timeFormat.format(calendar.getTime()).toString();
+            StorageReference newImg = saveImage.child(ImageURI.getLastPathSegment()+key+".jpg");
+            final UploadTask uploadTask = newImg.putFile(ImageURI);
+            Log.d("TAG_123", "onActivityResult: ");
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("TAG_123", "onFailure: dfghj");
+//                    Toast.makeText(AddProductActivity.this,"sdfghjk",Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(AddProductActivity.this,"Successful",Toast.LENGTH_SHORT).show();
+
+                    Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if(!task.isSuccessful()){
+                                throw task.getException();
+                            }
+//                            downloadedImage =
+
+//                            Log.d("TAG_456", "then: "+downloadedImage);
+                            return newImg.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if(task.isSuccessful()){
+//                                downloadedImage = newImg.getDownloadUrl().toString();
+//                                Log.d("TAG_456", "then: "+downloadedImage);
+                                newImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+//                                        saveProductToDatabase(uri.toString());
+                                        imageUri = uri.toString();
+//                                        reference.child("profilepicture").setValue(uri.toString());
+
+                                    }
+                                });
+//                                Toast.makeText(AddProductActivity.this,"retrived image added to database",Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+                }
+            });
+
         }
     }
 
@@ -172,7 +287,7 @@ public class AddProductActivity extends AppCompatActivity {
         }else{
             HashMap<String, Object> productMap = new HashMap<>();
             productMap.put("pid",key);
-            productMap.put("price",cost);
+            productMap.put("price","$"+cost);
             productMap.put("name",name);
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd, yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss a");
@@ -182,6 +297,7 @@ public class AddProductActivity extends AppCompatActivity {
             productMap.put("image_uri",imageUri);
             productMap.put("rating","0");
             productMap.put("description",description);
+            productMap.put("seller_id", mAuth.getUid());
 //        GeneralProductHome productHome = new GeneralProductHome("name","description","100","4","date","time",url,"category");
             productReference.child(key).updateChildren(productMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -196,6 +312,7 @@ public class AddProductActivity extends AppCompatActivity {
                             }
                         }
                     });
+            sellerReference.child(mAuth.getUid()).child("products").child(key).updateChildren(productMap);
 
         }
 
