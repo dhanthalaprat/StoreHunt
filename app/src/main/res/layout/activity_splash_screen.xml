@@ -28,13 +28,13 @@
             android:id="@+id/app_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
             android:text="@string/app_title_without_spaces"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/white"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            android:layout_gravity="center" />
+            android:textSize="48sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/app_caption"
