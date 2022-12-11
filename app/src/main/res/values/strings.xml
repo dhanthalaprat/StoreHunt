@@ -22,7 +22,7 @@
     <string name="select_category">Select category</string>
     <string name="click_to_add_products">Click + to add products</string>
     <string name="placing_order">Placing order</string>
-    <string name="successfully_placed_order">Successfully placed order</string>
+    <string name="successfully_placed_order">Your order is successfully placed</string>
 
     <!-- ORDER DETAILS   -->
     <string name="order_details">Order Details</string>

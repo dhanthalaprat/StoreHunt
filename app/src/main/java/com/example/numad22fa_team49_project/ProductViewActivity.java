@@ -76,6 +76,7 @@ public class ProductViewActivity extends AppCompatActivity {
 
         if(sharedPreferences.getBoolean("asSeller",false)){
             addToCart.setVisibility(View.GONE);
+            cart.setVisibility(View.GONE);
         }
 
 

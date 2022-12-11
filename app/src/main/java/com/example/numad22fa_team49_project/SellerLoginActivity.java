@@ -92,11 +92,12 @@ public class SellerLoginActivity extends AppCompatActivity {
                     if(task.isSuccessful()){
                         progress.dismiss();
                         Toast.makeText(SellerLoginActivity.this,"User logged in successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SellerLoginActivity.this,SellerProfileActivity.class));
+                        Intent intent = new Intent(SellerLoginActivity.this,SellerProfileActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                         SharedPreferences.Editor editSharedPreferences = sharedPreferences.edit();
                         editSharedPreferences.putBoolean("asSeller", true);
                         editSharedPreferences.apply();
-                        finish();
                     }else{
                         progress.dismiss();
                         Toast.makeText(SellerLoginActivity.this,"Login error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();

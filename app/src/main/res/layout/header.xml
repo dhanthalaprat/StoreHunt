@@ -27,7 +27,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:src="@drawable/ic_baseline_person_24"
-                android:id="@+id/profile_picture"
+                android:id="@+id/profile_picture_side_nav"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"/>
 

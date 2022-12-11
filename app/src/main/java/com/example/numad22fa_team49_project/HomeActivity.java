@@ -63,7 +63,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
 
-    ImageView cartView, menuButton, profilePicture, orders;
+    ImageView cartView, menuButton, profilePicture, orders, profilePicSideNav;
 //    NaopenProfile, logout;
 
     DrawerLayout drawerLayout;
@@ -81,6 +81,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         contentView= findViewById(R.id.content);
+
+        View navView = navigationView.inflateHeaderView(R.layout.header);
+        profilePicSideNav = navView.findViewById(R.id.profile_picture_side_nav);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -107,6 +110,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //        logout = findViewById(R.id.nav_logout);
         recentlyViewedText = findViewById(R.id.recently_viewed_text);
         cartSize = findViewById(R.id.cart_size);
+
+
+
 
         String userName = getIntent().getStringExtra("userName");
         Boolean fromSignUp = getIntent().getBooleanExtra("fromSignUp",false);
@@ -266,8 +272,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     Picasso.get().load(snapshot.getValue(String.class)).into(profilePicture);
+                    Picasso.get().load(snapshot.getValue(String.class)).into(profilePicSideNav);
+
                 }else{
                     profilePicture.setImageDrawable(getDrawable(R.drawable.ic_baseline_person_24));
+                    profilePicSideNav.setImageDrawable(getDrawable(R.drawable.ic_baseline_person_24));
                 }
             }
 

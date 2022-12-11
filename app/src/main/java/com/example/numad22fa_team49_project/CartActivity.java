@@ -73,6 +73,11 @@ public class CartActivity extends AppCompatActivity {
                 Log.d("TAG_135",finalPrice);
                 totalPriceButton.setText("Total: "+finalPrice);
                 cartItemViewAdapter.notifyDataSetChanged();
+                if(products.size()==0){
+                    totalPriceButton.setVisibility(View.GONE);
+                }else{
+                    totalPriceButton.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
