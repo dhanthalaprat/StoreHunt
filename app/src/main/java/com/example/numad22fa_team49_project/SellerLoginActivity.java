@@ -2,13 +2,16 @@ package com.example.numad22fa_team49_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +29,7 @@ public class SellerLoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     TextView sellerSignUp;
     SharedPreferences sharedPreferences;
+    ConstraintLayout mainLayout;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class SellerLoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         sellerSignUp = findViewById(R.id.seller_signup);
         sharedPreferences = getSharedPreferences("storeHunt", MODE_PRIVATE);
+        mainLayout = findViewById(R.id.for_keyboard_seller);
 
 
 
@@ -59,6 +64,10 @@ public class SellerLoginActivity extends AppCompatActivity {
     }
 
     private void login() {
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
+
         ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");

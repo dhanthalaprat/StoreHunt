@@ -2,12 +2,15 @@ package com.example.numad22fa_team49_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +27,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText loginEmail, loginPassword;
     TextView signUp, loginAsSeller;
     Button loginButton;
+    ConstraintLayout mainLayout;
+
+// Get your layout set up, this is just an example
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_Button);
         signUp = findViewById(R.id.from_login_signup);
+        mainLayout = findViewById(R.id.for_keyboard);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -65,6 +72,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loginUser() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
 
         ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Loading");
