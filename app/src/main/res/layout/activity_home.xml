@@ -376,6 +376,8 @@
                         android:layout_marginStart="5dp"
                         android:textColor="@color/black"
                         android:id="@+id/recently_viewed_text"
+                        android:visibility="gone"
+                        tools:visibility="visible"
                         />
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="wrap_content"

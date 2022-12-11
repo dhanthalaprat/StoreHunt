@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -70,6 +71,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     LinearLayout toys, crafts, arts, homeDecor, gardening, collectibles;
 
+    TextView recentlyViewedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         orders = findViewById(R.id.previous_orders);
 //        openProfile = findViewById(R.id.nav_profile);
 //        logout = findViewById(R.id.nav_logout);
+        recentlyViewedText = findViewById(R.id.recently_viewed_text);
 
         String userName = getIntent().getStringExtra("userName");
         Boolean fromSignUp = getIntent().getBooleanExtra("fromSignUp",false);
@@ -235,6 +238,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 for(DataSnapshot data: snapshot.getChildren()){
                     GeneralProductHome productHome = data.getValue(GeneralProductHome.class);
                     recentProducts.add(productHome);
+                }
+                if(recentProducts.size()>0){
+                    recentlyViewedText.setVisibility(View.VISIBLE);
                 }
                 recentProductsAdapter.notifyDataSetChanged();
             }
