@@ -10,11 +10,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.arch.core.executor.DefaultTaskExecutor;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.numad22fa_team49_project.CartActivity;
 import com.example.numad22fa_team49_project.R;
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
+import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,10 +24,12 @@ import java.util.ArrayList;
 public class CartItemViewAdapter extends RecyclerView.Adapter<CartItemViewAdapter.CartItemViewHolder> {
     Context context;
     ArrayList<GeneralProductHome> products;
+    DatabaseReference reference;
 
-    public CartItemViewAdapter(Context context, ArrayList<GeneralProductHome> products) {
+    public CartItemViewAdapter(Context context, ArrayList<GeneralProductHome> products, DatabaseReference reference) {
         this.context = context;
         this.products = products;
+        this.reference = reference;
     }
 
     @NonNull
@@ -46,6 +50,7 @@ public class CartItemViewAdapter extends RecyclerView.Adapter<CartItemViewAdapte
             @Override
             public void onClick(View view) {
                 Log.d("TAG_324", "onClick: "+products.get(holder.getAdapterPosition()).getName());
+                reference.child(product.getName()).removeValue();
             }
         });
 

@@ -49,7 +49,7 @@ public class CartActivity extends AppCompatActivity {
 
         cartItemRecyclerView = findViewById(R.id.cart_recycler_view);
         cartItemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        cartItemViewAdapter = new CartItemViewAdapter(this,products);
+        cartItemViewAdapter = new CartItemViewAdapter(this,products,mReference);
         cartItemRecyclerView.setAdapter(cartItemViewAdapter);
         backButton = findViewById(R.id.back_button);
         totalPriceButton = findViewById(R.id.total_price);
@@ -58,6 +58,7 @@ public class CartActivity extends AppCompatActivity {
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                products.clear();
                 for( DataSnapshot data: snapshot.getChildren()){
                     GeneralProductHome cartItem = data.getValue(GeneralProductHome.class);
                     products.add(cartItem);
