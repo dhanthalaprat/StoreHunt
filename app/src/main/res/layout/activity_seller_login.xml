@@ -74,11 +74,12 @@
                 android:layout_gravity="center"
                 android:background="#00000000"
                 android:onClick="onClick"
+                android:foreground="@drawable/ripple_new_effect"
                 android:text="@string/login_cta"/>
 
             <TextView
                 android:id="@+id/seller_signup"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
@@ -86,6 +87,7 @@
                 android:text="@string/seller_signup_from_login"
                 android:textColor="#0F041C"
                 android:textAlignment="center"
+                android:layout_gravity="center"
                 android:padding="6dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginStart="100dp"

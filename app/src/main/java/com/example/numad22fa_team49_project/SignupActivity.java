@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     FirebaseAuth mAuth;
     Button signUpButton;
     EditText signUpName, signUpEmail, signUpPassword;
+    TextView loginAsSeller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,16 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         signUpName = findViewById(R.id.signup_fullname);
         signUpEmail = findViewById(R.id.signup_email);
         signUpPassword = findViewById(R.id.signup_password);
+        loginAsSeller = findViewById(R.id.loginAsSeller);
 
         mAuth = FirebaseAuth.getInstance();
+
+        loginAsSeller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
