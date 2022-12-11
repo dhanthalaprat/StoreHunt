@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">NUMAD22FA_Team49_Project</string>
     <string name="app_title">Store Hunt</string>
+    <string name="app_title_without_spaces">StoreHunt</string>
+    <string name="app_caption">Discover Small Businesses</string>
     <string name="name_hint">Full Name</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
@@ -18,4 +20,6 @@
     <string name="seller_signup_from_login">New Seller?  SignUp</string>
     <string name="checkout_cta">Checkout</string>
     <string name="select_category">Select category</string>
+    <string name="click_to_add_products">Click + to add products</string>
+    <string name="placing_order">Placing order</string>
 </resources>
