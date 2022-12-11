@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,12 +34,14 @@ public class ViewOrdersActivity extends AppCompatActivity {
     ArrayList<GeneralProductHome> productsInOrders;
     RecyclerView viewOrdersRecyclerView;
     GeneralProductHomeAdapter generalProductHomeAdapter;
+    ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_orders);
         mAuth = FirebaseAuth.getInstance();
+        backButton = findViewById(R.id.back_button_orders_previous);
 
         mReference = FirebaseDatabase.getInstance().getReference("user").child(mAuth.getUid());
         isFromCheckout = getIntent().getBooleanExtra("fromCheckout",false);
@@ -91,6 +94,13 @@ public class ViewOrdersActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 
