@@ -56,16 +56,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Click Image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Click a picture"
                 android:id="@+id/click_image"
+                android:layout_weight="1"
                 android:layout_marginEnd="10dp"/>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choose image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Choose image from gallery"
+                android:layout_weight="1"
                 android:id="@+id/select_image_gallery"
                 android:layout_marginStart="10dp"/>
         </LinearLayout>
@@ -109,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Upload Product"
+            android:layout_gravity="center"
             android:id="@+id/upload_product"
             />
 
