@@ -1,6 +1,7 @@
 package com.example.numad22fa_team49_project.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,12 @@ public class CartItemViewAdapter extends RecyclerView.Adapter<CartItemViewAdapte
         holder.productCost.setText(product.getPrice());
         holder.productRatingText.setText(product.getRating());
         holder.ratingBar.setRating(Float.parseFloat(product.getRating()));
+        holder.deleteFromCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG_324", "onClick: "+products.get(holder.getAdapterPosition()).getName());
+            }
+        });
 
     }
 
@@ -51,7 +58,7 @@ public class CartItemViewAdapter extends RecyclerView.Adapter<CartItemViewAdapte
 
     public class CartItemViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView productImage;
+        ImageView productImage, deleteFromCart;
         TextView productName, productCost, productRatingText;
         RatingBar ratingBar;
 
@@ -62,6 +69,9 @@ public class CartItemViewAdapter extends RecyclerView.Adapter<CartItemViewAdapte
             ratingBar = itemView.findViewById(R.id.cart_item_rating);
             productCost = itemView.findViewById(R.id.cart_item_price);
             productRatingText = itemView.findViewById(R.id.rating_cart_item_text);
+            deleteFromCart = itemView.findViewById(R.id.delete_from_cart);
+
+
 
 
         }
