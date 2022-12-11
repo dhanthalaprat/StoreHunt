@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SellerRegisterationActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    EditText signUpEmail, signUpName, signUpPassword;
+    EditText signUpEmail, signUpName, signUpPassword, confirmPassword;
     Button sellerRegistration;
 
     DatabaseReference mReference;
@@ -40,7 +40,7 @@ public class SellerRegisterationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("storeHunt", MODE_PRIVATE);
 
-
+        confirmPassword = findViewById(R.id.seller_signup_confirm_password);
         signUpEmail = findViewById(R.id.seller_signup_email);
         signUpName = findViewById(R.id.seller_signup_full_name);
         signUpPassword = findViewById(R.id.seller_signup_password);
@@ -68,6 +68,7 @@ public class SellerRegisterationActivity extends AppCompatActivity {
         String name = signUpName.getText().toString();
         String email = signUpEmail.getText().toString();
         String password = signUpPassword.getText().toString();
+        String confirmPswd = confirmPassword.getText().toString();
 
         // Form Validation
         if (TextUtils.isEmpty(name)){
@@ -82,6 +83,13 @@ public class SellerRegisterationActivity extends AppCompatActivity {
             progress.dismiss();
             Toast.makeText(this,"Password is required to create an account",Toast.LENGTH_SHORT).show();
             signUpPassword.requestFocus();
+        } else if (TextUtils.isEmpty(confirmPswd)){
+            progress.dismiss();
+            Toast.makeText(this,"Please confirm your password",Toast.LENGTH_SHORT).show();
+            signUpPassword.requestFocus();
+        } else if (!password.equals(confirmPswd)){
+            progress.dismiss();
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
         } else{
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
