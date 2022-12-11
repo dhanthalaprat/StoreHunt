@@ -84,27 +84,27 @@ public class CheckoutDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View view) {
                 if(TextUtils.isEmpty(fullName.getText())){
-                    Toast.makeText(getContext(),"1",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Please enter a valid full name",Toast.LENGTH_SHORT).show();
                     fullName.requestFocus();
                 }
                 else if(TextUtils.isEmpty(street.getText())){
-                    Toast.makeText(getContext(),"2",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Please enter a valid street name",Toast.LENGTH_SHORT).show();
                     street.requestFocus();
                 }
                 else if(TextUtils.isEmpty(city.getText())){
-                    Toast.makeText(getContext(),"3",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Please enter a valid city",Toast.LENGTH_SHORT).show();
                     city.requestFocus();
                 }
                 else if(TextUtils.isEmpty(state.getText())){
-                    Toast.makeText(getContext(),"4",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Please enter a valid state",Toast.LENGTH_SHORT).show();
                     state.requestFocus();
                 }
                 else if(TextUtils.isEmpty(country.getText())){
-                    Toast.makeText(getContext(),"5",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Please enter a valid country",Toast.LENGTH_SHORT).show();
                     country.requestFocus();
                 }
                 else if(TextUtils.isEmpty(zipCode.getText())){
-                    Toast.makeText(getContext(),"6",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Please enter a valid zip code",Toast.LENGTH_SHORT).show();
                     zipCode.requestFocus();
                 }else{
                     FirebaseAuth mAuth = FirebaseAuth.getInstance();
