@@ -2,13 +2,16 @@ package com.example.numad22fa_team49_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,6 +33,7 @@ public class SellerRegisterationActivity extends AppCompatActivity {
     DatabaseReference mReference;
     SharedPreferences sharedPreferences;
 
+    ConstraintLayout mainLayout;
 
 
     @Override
@@ -45,6 +49,7 @@ public class SellerRegisterationActivity extends AppCompatActivity {
         signUpName = findViewById(R.id.seller_signup_full_name);
         signUpPassword = findViewById(R.id.seller_signup_password);
         sellerRegistration = findViewById(R.id.seller_register_button);
+        mainLayout = findViewById(R.id.for_keyboard_seller_signup);
 
         mReference = FirebaseDatabase.getInstance().getReference().child("seller");
 
@@ -59,6 +64,10 @@ public class SellerRegisterationActivity extends AppCompatActivity {
     }
 
     public void registerUser(){
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
+
         ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");
