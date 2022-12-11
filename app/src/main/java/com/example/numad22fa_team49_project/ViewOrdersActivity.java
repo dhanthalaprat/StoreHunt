@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.numad22fa_team49_project.adapters.GeneralProductHomeAdapter;
+import com.example.numad22fa_team49_project.adapters.NewOrderRecyclerViewAdapter;
 import com.example.numad22fa_team49_project.models.GeneralProductHome;
+import com.example.numad22fa_team49_project.models.NewOrderModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,12 +36,17 @@ public class ViewOrdersActivity extends AppCompatActivity {
     ArrayList<GeneralProductHome> productsInOrders;
     RecyclerView viewOrdersRecyclerView;
     GeneralProductHomeAdapter generalProductHomeAdapter;
+    NewOrderRecyclerViewAdapter newOrderRecyclerViewAdapter;
+    ArrayList<NewOrderModel> orderModels;
+    ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_orders);
         mAuth = FirebaseAuth.getInstance();
+        backButton = findViewById(R.id.back_button_orders_previous);
+
 
         mReference = FirebaseDatabase.getInstance().getReference("user").child(mAuth.getUid());
         isFromCheckout = getIntent().getBooleanExtra("fromCheckout",false);
@@ -75,7 +83,11 @@ public class ViewOrdersActivity extends AppCompatActivity {
         productsInOrders = new ArrayList<>();
         generalProductHomeAdapter = new GeneralProductHomeAdapter(this,productsInOrders);
         viewOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        viewOrdersRecyclerView.setAdapter(generalProductHomeAdapter);
+//        viewOrdersRecyclerView.setAdapter(generalProductHomeAdapter);
+
+        orderModels = new ArrayList<>();
+        newOrderRecyclerViewAdapter = new NewOrderRecyclerViewAdapter(this, orderModels, false);
+        viewOrdersRecyclerView.setAdapter(newOrderRecyclerViewAdapter);
 
         mReference.child("orders").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -84,13 +96,21 @@ public class ViewOrdersActivity extends AppCompatActivity {
                     GeneralProductHome product = data.getValue(GeneralProductHome.class);
                     productsInOrders.add(product);
                 }
-                generalProductHomeAdapter.notifyDataSetChanged();
+//                generalProductHomeAdapter.notifyDataSetChanged();
+                newOrderRecyclerViewAdapter.notifyDataSetChanged();
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 
