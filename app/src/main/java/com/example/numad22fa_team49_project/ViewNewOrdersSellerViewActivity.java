@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.numad22fa_team49_project.adapters.NewOrderRecyclerViewAdapter;
 import com.example.numad22fa_team49_project.models.NewOrderModel;
@@ -26,6 +28,7 @@ public class ViewNewOrdersSellerViewActivity extends AppCompatActivity {
 
     DatabaseReference reference;
     FirebaseAuth mAuth;
+    ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,8 @@ public class ViewNewOrdersSellerViewActivity extends AppCompatActivity {
 
         orders = new ArrayList<>();
         allNewOrders = findViewById(R.id.full_orders_recycler_view);
-        adapter = new NewOrderRecyclerViewAdapter(this, orders);
+        backButton = findViewById(R.id.back_button_orders);
+        adapter = new NewOrderRecyclerViewAdapter(this, orders, false);
         allNewOrders.setLayoutManager(new LinearLayoutManager(this));
         allNewOrders.setAdapter(adapter);
 
@@ -54,6 +58,13 @@ public class ViewNewOrdersSellerViewActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
