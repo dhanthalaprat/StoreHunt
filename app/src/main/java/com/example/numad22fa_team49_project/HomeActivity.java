@@ -291,6 +291,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     }else{
                         cartSize.setVisibility(View.GONE);
                     }
+                }else{
+                    cartSize.setVisibility(View.GONE);
                 }
             }
 

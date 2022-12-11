@@ -51,6 +51,8 @@ public class ProductViewActivity extends AppCompatActivity {
         sharedPreferences =getSharedPreferences("storeHunt",MODE_PRIVATE);
         mReference = FirebaseDatabase.getInstance().getReference().child("user");
 
+
+
         back = findViewById(R.id.back_button_product);
         productImage = findViewById(R.id.product_view_image);
         productName = findViewById(R.id.product_view_name);
@@ -71,6 +73,10 @@ public class ProductViewActivity extends AppCompatActivity {
         mReference.child(sharedPreferences.getString("userId","")).child("recent").child(product.getName()).setValue(product);
 
         cartCountRef = FirebaseDatabase.getInstance().getReference().child("user").child(sharedPreferences.getString("userId","")).child("cart");
+
+        if(sharedPreferences.getBoolean("asSeller",false)){
+            addToCart.setVisibility(View.GONE);
+        }
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +114,8 @@ public class ProductViewActivity extends AppCompatActivity {
                     }else{
                         cartSize.setVisibility(View.GONE);
                     }
+                }else{
+                    cartSize.setVisibility(View.GONE);
                 }
             }
 
@@ -118,6 +126,7 @@ public class ProductViewActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void addToCartAndDB() {
 
