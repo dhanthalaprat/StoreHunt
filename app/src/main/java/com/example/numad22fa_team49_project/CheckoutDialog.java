@@ -117,7 +117,7 @@ public class CheckoutDialog extends AppCompatDialogFragment {
                                 mAuth.getUid(), street.getText().toString(), city.getText().toString(), state.getText().toString(),
                                 country.getText().toString(),zipCode.getText().toString(),productHome.getImage_uri());
                         ref.child("orders").push().setValue(order);
-                        mReference.child("orders").push().setValue(productHome);
+                        mReference.child("orders").push().setValue(order);
                     }
 
                     CheckoutDialog.this.dismiss();
