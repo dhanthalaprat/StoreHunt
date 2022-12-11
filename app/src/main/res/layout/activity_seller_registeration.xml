@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/grey_background"/>
+        android:background="@drawable/background"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,13 +23,23 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Seller Registration"
-                android:textColor="#FD081F40"
-                android:textSize="30sp"
+                android:text="Store Hunt"
+                android:textColor="#603a91"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="100dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Become our new seller"
+                android:textColor="#603a91"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_marginBottom="32dp"
-                android:layout_marginTop="100dp"/>
+                android:layout_marginTop="10dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -110,7 +120,7 @@
                 android:foreground="@drawable/ripple_new_effect"
                 android:layout_marginTop="40dp"
                 android:layout_gravity="center"
-                android:background="#00000000"
+                android:background="@drawable/button_login_background"
                 android:text="@string/signup_cta" />
 
             <!--            <TextView-->

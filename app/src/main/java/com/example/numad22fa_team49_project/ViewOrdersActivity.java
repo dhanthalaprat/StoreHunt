@@ -93,8 +93,8 @@ public class ViewOrdersActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data : snapshot.getChildren()){
-                    GeneralProductHome product = data.getValue(GeneralProductHome.class);
-                    productsInOrders.add(product);
+                    NewOrderModel product = data.getValue(NewOrderModel.class);
+                    orderModels.add(product);
                 }
 //                generalProductHomeAdapter.notifyDataSetChanged();
                 newOrderRecyclerViewAdapter.notifyDataSetChanged();

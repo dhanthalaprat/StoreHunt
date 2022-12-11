@@ -207,7 +207,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //        snapHelper.attachToRecyclerView(newProductRecyclerView);
 //        newProductRecyclerView.setAdapter(generalProductHomeAdapter);
 
-//        search = findViewById(R.id.searchButton);
+        search = findViewById(R.id.searchButton);
 
         cartView = findViewById(R.id.view_cart_button);
 
@@ -219,12 +219,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
         navigationDrawer();
 
-//        search.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(HomeActivity.this, SearchActivity.class));
-//            }
-//        });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+            }
+        });
 
         recentRef = FirebaseDatabase.getInstance().getReference("user").child(mAuth.getUid());
 

@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/grey_background"/>
+        android:background="@drawable/background"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,13 +21,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Seller Sign In"
-                android:textColor="#FD081F40"
-                android:textSize="30sp"
+                android:text="@string/app_title"
+                android:textColor="#603a91"
+                android:textSize="35sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:layout_marginBottom="100dp"
+
                 android:layout_marginTop="100dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Login and sell more!"
+                android:textColor="#603a91"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="10dp"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,7 +84,8 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="40dp"
                 android:layout_gravity="center"
-                android:background="#00000000"
+                style="@android:style/Widget.Button"
+                android:background="@drawable/button_login_background"
                 android:onClick="onClick"
                 android:foreground="@drawable/ripple_new_effect"
                 android:text="@string/login_cta"/>
@@ -83,9 +96,9 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
+                android:textColor="#603a91"
                 android:foreground="@drawable/ripple_new_effect"
                 android:text="@string/seller_signup_from_login"
-                android:textColor="#0F041C"
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:padding="6dp"

@@ -41,7 +41,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         loginAsSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(SignupActivity.this,SellerLoginActivity.class));
             }
         });
     }

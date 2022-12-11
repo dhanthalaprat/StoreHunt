@@ -113,7 +113,7 @@ public class CheckoutDialog extends AppCompatDialogFragment {
                         Log.d("TAG_285", "onClick: "+productHome.getSeller_id());
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("seller").child(productHome.getSeller_id());
 //                        NewOrderModel(String productName, String productPrice, String userName, String userId, String street, String city, String state, String country, String zipcode, String image_uri)
-                        NewOrderModel order = new NewOrderModel(productHome.getName(),productHome.getPrice(),"name",
+                        NewOrderModel order = new NewOrderModel(productHome.getName(),productHome.getPrice(),fullName.getText().toString(),
                                 mAuth.getUid(), street.getText().toString(), city.getText().toString(), state.getText().toString(),
                                 country.getText().toString(),zipCode.getText().toString(),productHome.getImage_uri());
                         ref.child("orders").push().setValue(order);
