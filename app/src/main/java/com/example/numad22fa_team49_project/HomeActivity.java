@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView newProductRecyclerView;
 
     CardView search;
-    DatabaseReference reference, recentRef;
+    DatabaseReference reference, recentRef, cartCountRef;
 
     ArrayList<GeneralProductHome> generalProductHomes, recentProducts;
     FirebaseAuth mAuth;
@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     LinearLayout toys, crafts, arts, homeDecor, gardening, collectibles;
 
-    TextView recentlyViewedText;
+    TextView recentlyViewedText, cartSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +92,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         editSharedPreferences.putString("userId", mAuth.getUid());
         editSharedPreferences.apply();
 
+        cartCountRef = FirebaseDatabase.getInstance().getReference().child("user").child(sharedPreferences.getString("userId","")).child("cart");
+
+
         toys = findViewById(R.id.toys);
         crafts = findViewById(R.id.crafts);
         arts = findViewById(R.id.arts);
@@ -103,6 +106,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //        openProfile = findViewById(R.id.nav_profile);
 //        logout = findViewById(R.id.nav_logout);
         recentlyViewedText = findViewById(R.id.recently_viewed_text);
+        cartSize = findViewById(R.id.cart_size);
 
         String userName = getIntent().getStringExtra("userName");
         Boolean fromSignUp = getIntent().getBooleanExtra("fromSignUp",false);
@@ -241,6 +245,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 }
                 if(recentProducts.size()>0){
                     recentlyViewedText.setVisibility(View.VISIBLE);
+                }else{
+                    recentlyViewedText.setVisibility(View.GONE);
+
                 }
                 recentProductsAdapter.notifyDataSetChanged();
             }
@@ -261,6 +268,29 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     Picasso.get().load(snapshot.getValue(String.class)).into(profilePicture);
                 }else{
                     profilePicture.setImageDrawable(getDrawable(R.drawable.ic_baseline_person_24));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        cartCountRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<GeneralProductHome> generalProductHomeArrayList = new ArrayList<>();
+                if(snapshot.exists()){
+                    for(DataSnapshot data: snapshot.getChildren()){
+                        generalProductHomeArrayList.add(data.getValue(GeneralProductHome.class));
+                    }
+                    if(generalProductHomeArrayList.size()>0){
+                        cartSize.setVisibility(View.VISIBLE);
+                        cartSize.setText(""+generalProductHomeArrayList.size());
+                    }else{
+                        cartSize.setVisibility(View.GONE);
+                    }
                 }
             }
 

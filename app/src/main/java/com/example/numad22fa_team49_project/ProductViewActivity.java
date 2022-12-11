@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,15 +26,18 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class ProductViewActivity extends AppCompatActivity {
 
-    ImageView productImage, back;
+    ImageView productImage, back, cart;
     TextView productName, productCost, productDescription, productRatingText;
     RatingBar productRating;
     GeneralProductHome product;
     Button addToCart;
-    DatabaseReference mReference;
+    DatabaseReference mReference, cartCountRef;
     SharedPreferences sharedPreferences;
+    TextView cartSize;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -55,6 +59,8 @@ public class ProductViewActivity extends AppCompatActivity {
         productRatingText = findViewById(R.id.product_view_rating_text);
         productRating = findViewById(R.id.product_view_rating);
         addToCart = findViewById(R.id.add_to_cart_button);
+        cart = findViewById(R.id.view_cart_button_product);
+        cartSize = findViewById(R.id.cart_size_product);
 
         productName.setText(product.getName());
         productDescription.setText(product.getDescription());
@@ -63,6 +69,9 @@ public class ProductViewActivity extends AppCompatActivity {
         productRating.setRating(Float.parseFloat(product.getRating()));
         Picasso.get().load(product.getImage_uri()).into(productImage);
         mReference.child(sharedPreferences.getString("userId","")).child("recent").child(product.getName()).setValue(product);
+
+        cartCountRef = FirebaseDatabase.getInstance().getReference().child("user").child(sharedPreferences.getString("userId","")).child("cart");
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +86,37 @@ public class ProductViewActivity extends AppCompatActivity {
                 addToCartAndDB();
             }
         });
+
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductViewActivity.this, CartActivity.class));
+            }
+        });
+
+        cartCountRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<GeneralProductHome> generalProductHomeArrayList = new ArrayList<>();
+                if(snapshot.exists()){
+                    for(DataSnapshot data: snapshot.getChildren()){
+                        generalProductHomeArrayList.add(data.getValue(GeneralProductHome.class));
+                    }
+                    if(generalProductHomeArrayList.size()>0){
+                        cartSize.setVisibility(View.VISIBLE);
+                        cartSize.setText(""+generalProductHomeArrayList.size());
+                    }else{
+                        cartSize.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void addToCartAndDB() {
