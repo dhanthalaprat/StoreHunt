@@ -93,7 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         if (!hasPermissions(this,PERMISSIONS)){
-            ActivityCompat.requestPermissions(ProfileActivity.this, new String[] {Manifest.permission.CAMERA}, 100);
+            ActivityCompat.requestPermissions(ProfileActivity.this, PERMISSIONS, 100);
 
         }
 
@@ -118,7 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void openCamera() {
         if (!hasPermissions(this,PERMISSIONS)){
-            ActivityCompat.requestPermissions(ProfileActivity.this, new String[] {Manifest.permission.CAMERA}, 100);
+            ActivityCompat.requestPermissions(ProfileActivity.this, PERMISSIONS, 100);
 
         }else{
             Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
