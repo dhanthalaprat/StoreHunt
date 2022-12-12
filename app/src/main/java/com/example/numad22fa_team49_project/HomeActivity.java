@@ -197,7 +197,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data : snapshot.getChildren()) {
                     GeneralProductHome productItem = data.getValue(GeneralProductHome.class);
-                    generalProductHomes.add(productItem);
+                    generalProductHomes.add(0,productItem);
                 }
                 generalProductHomeAdapter.notifyDataSetChanged();
                 Log.d("TAG_90", "onDataChange: " + generalProductHomes.size());
